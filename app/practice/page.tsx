@@ -111,10 +111,21 @@ export default function PracticePage() {
     setIsEditing(true);
   };
 
+  const scrollToReadingArea = () => {
+    if (isFullscreen || !fullscreenContainerRef.current) return;
+    fullscreenContainerRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+  };
+
   const handleStartReading = () => {
     if (textInput.trim()) {
       setIsEditing(false);
       handlePlay();
+      // Scroll to practice area (text box + settings bar) after layout updates
+      setTimeout(scrollToReadingArea, 100);
     }
   };
 
@@ -134,12 +145,10 @@ export default function PracticePage() {
         if (!textInput.trim()) return;
         
         if (isEditing) {
-          setIsEditing(false);
-          if (currentWordIndex >= words.length - 1) {
-            setCurrentWordIndex(0);
-          }
-          setIsPlaying(true);
-        } else if (isPlaying) {
+          handleStartReading();
+          return;
+        }
+        if (isPlaying) {
           setIsPlaying(false);
         } else {
           if (currentWordIndex >= words.length - 1) {
@@ -203,13 +212,13 @@ export default function PracticePage() {
           {/* Fullscreen Container - Reading Area + Controls */}
           <div 
             ref={fullscreenContainerRef}
-            className={`${isFullscreen ? 'h-full flex flex-col bg-gray-50 p-6' : ''}`}
+            className={`${isFullscreen ? 'h-full flex flex-col bg-gray-50 p-6' : 'scroll-mt-20'}`}
           >
             {/* Unified Text Input and Reading Display Area */}
             <div className={`bg-white rounded-2xl shadow-lg p-4 md:p-6 ${isFullscreen ? 'mb-0 flex-1 flex flex-col' : 'mb-6'}`}>
             
             {/* Mobile Header */}
-            <div className="md:hidden flex items-center justify-between mb-3">
+            <div className="md:hidden flex items-center justify-between mb-3 pb-3 border-b border-gray-200">
               <div className="flex items-center gap-2 min-w-0">
                 <div className="bg-blue-600 p-1.5 rounded-lg shrink-0">
                   <Zap className="w-3 h-3 text-white" />
@@ -441,11 +450,16 @@ export default function PracticePage() {
             )}
           </div>
 
-            {/* Controls Bar */}
-            <div className={`bg-white rounded-2xl shadow-lg ${isFullscreen ? 'mt-4' : ''}`}>
-
+            {/* Settings Bar - sticky: floats at bottom until we scroll past its area */}
+            <div
+              className={
+                isFullscreen
+                  ? "mt-4 bg-white rounded-2xl shadow-lg"
+                  : "sticky bottom-0 z-50 mt-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-gray-200 dark:border-slate-700 rounded-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_-4px_24px_rgba(0,0,0,0.25)] md:mx-auto md:max-w-4xl"
+              }
+            >
               {/* Mobile: clean compact layout */}
-              <div className="md:hidden p-4">
+              <div className={`md:hidden p-4 ${!isFullscreen ? "pb-[calc(1rem+env(safe-area-inset-bottom,0px))]" : ""}`}>
                 {/* Row 1: Mode + Speed + Font */}
                 <div className="flex items-center justify-between gap-2 mb-3">
                   {/* Mode Toggle */}
