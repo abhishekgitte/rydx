@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { Zap } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useFullscreen } from "@/hooks/useFullscreen";
@@ -171,14 +173,31 @@ export default function PracticePage() {
       <main className={`flex-grow w-full ${isFullscreen ? 'p-0' : 'px-4 sm:px-6 lg:px-8 py-6 lg:py-8'}`}>
         <div className={`${isFullscreen ? 'h-full' : 'max-w-7xl mx-auto'}`}>
           {!isFullscreen && (
-            <>
-              {/* Page Title */}
-              <div className="mb-6">
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Reading Practice</h1>
-                <p className="text-gray-600 mt-1">Paste your text and practice reading with speed control.</p>
-                <p className="text-gray-600 mt-1">Adjust your controls before your start!</p>
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4"
+            >
+              <div>
+                <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  Reading Practice
+                </h1>
+                <p className="text-slate-600 dark:text-slate-400 mt-2 text-lg max-w-2xl">
+                  Paste your text and practice reading with speed control. 
+                  <span className="hidden md:inline"> Adjust your controls before you start!</span>
+                </p>
               </div>
-            </>
+              
+              <div className="flex items-center gap-3 bg-white dark:bg-slate-900 px-4 py-2 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+                <div className="bg-amber-500/10 p-1.5 rounded-md">
+                  <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
+                </div>
+                <div className="text-sm">
+                  <p className="font-bold text-slate-900 dark:text-white leading-none">Pro Tip</p>
+                  <p className="text-slate-500 text-xs mt-1">Use Spacebar to Play/Pause</p>
+                </div>
+              </div>
+            </motion.div>
           )}
 
           {/* Fullscreen Container - Reading Area + Controls */}
@@ -187,12 +206,69 @@ export default function PracticePage() {
             className={`${isFullscreen ? 'h-full flex flex-col bg-gray-50 p-6' : ''}`}
           >
             {/* Unified Text Input and Reading Display Area */}
-            <div className={`bg-white rounded-2xl shadow-lg p-6 ${isFullscreen ? 'mb-0 flex-1 flex flex-col' : 'mb-6'}`}>
-            {/* Header with Clear Button */}
-            <div className="flex items-center justify-between mb-4">
-              <label className="block text-sm font-semibold text-gray-900">
-                RydX Area!
-              </label>
+            <div className={`bg-white rounded-2xl shadow-lg p-4 md:p-6 ${isFullscreen ? 'mb-0 flex-1 flex flex-col' : 'mb-6'}`}>
+            
+            {/* Mobile Header */}
+            <div className="md:hidden flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="bg-blue-600 p-1.5 rounded-lg shrink-0">
+                  <Zap className="w-3 h-3 text-white" />
+                </div>
+                <div className="min-w-0">
+                  <h2 className="text-sm font-bold text-gray-900 truncate">RydX Practice Area</h2>
+                  {textInput.trim() && (
+                    <p className="text-[11px] text-gray-400">{words.length} words • {Math.ceil(words.length / speed)} min</p>
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={toggleFullscreen}
+                  className="w-9 h-9 flex items-center justify-center bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
+                  title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+                >
+                  {isFullscreen ? (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                    </svg>
+                  )}
+                </button>
+                {textInput.trim() && (
+                  <button
+                    onClick={handleClearText}
+                    className="w-9 h-9 flex items-center justify-center bg-red-50 text-red-500 rounded-lg hover:bg-red-100 transition-colors"
+                    title="Clear all text"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                )}
+                {!isEditing && textInput.trim() && (
+                  <button
+                    onClick={() => setIsEditing(true)}
+                    className="h-9 px-3 bg-gray-100 text-gray-600 rounded-lg font-semibold hover:bg-gray-200 transition-colors text-xs"
+                  >
+                    Edit
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Desktop Header */}
+            <div className="hidden md:flex items-center justify-between mb-4 pb-4 border-b border-slate-100">
+              <div className="flex items-center gap-2.5">
+                <div className="bg-blue-600 p-1.5 rounded-lg shadow-lg shadow-blue-500/20">
+                  <Zap className="w-4 h-4 text-white" />
+                </div>
+                <h2 className="text-base font-bold text-slate-900 tracking-tight">
+                  RydX Practice Area
+                </h2>
+              </div>
               <div className="flex items-center gap-3">
                 {textInput.trim() && (
                   <>
@@ -214,14 +290,14 @@ export default function PracticePage() {
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
-                      <span className="hidden sm:inline">Exit</span>
+                      <span>Exit</span>
                     </>
                   ) : (
                     <>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                       </svg>
-                      <span className="hidden sm:inline">Fullscreen</span>
+                      <span>Fullscreen</span>
                     </>
                   )}
                 </button>
@@ -234,7 +310,7 @@ export default function PracticePage() {
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
-                    <span className="hidden sm:inline">Clear</span>
+                    <span>Clear</span>
                   </button>
                 )}
                 {!isEditing && textInput.trim() && (
@@ -365,155 +441,116 @@ export default function PracticePage() {
             )}
           </div>
 
-            {/* Controls Bar - Responsive Layout */}
-            <div className={`bg-white rounded-2xl shadow-lg p-4 md:p-6 ${isFullscreen ? 'mt-4' : ''}`}>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {/* Mode Selection */}
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">
-                  Mode
-                </label>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      setMode("run");
-                      handleReset();
-                    }}
-                    className={`flex-1 px-4 py-2.5 rounded-lg font-medium transition-all ${
-                      mode === "run"
-                        ? "bg-blue-600 text-white shadow-md"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
-                  >
-                    Run
-                  </button>
-                  <button
-                    onClick={() => {
-                      setMode("flash");
-                      handleReset();
-                    }}
-                    className={`flex-1 px-4 py-2.5 rounded-lg font-medium transition-all ${
-                      mode === "flash"
-                        ? "bg-blue-600 text-white shadow-md"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
-                  >
-                    Flash
-                  </button>
-                </div>
-              </div>
+            {/* Controls Bar */}
+            <div className={`bg-white rounded-2xl shadow-lg ${isFullscreen ? 'mt-4' : ''}`}>
 
-              {/* Speed Control */}
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">
-                  Speed: <span className="text-blue-600">{speed} WPM</span>
-                </label>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setSpeed(Math.max(50, speed - 5))}
-                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
-                    aria-label="Decrease WPM"
-                  >
-                    −
-                  </button>
-                  <input
-                    type="range"
-                    min="50"
-                    max="1200"
-                    step="5"
-                    value={speed}
-                    onChange={(e) => setSpeed(Number(e.target.value))}
-                    className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                  />
-                  <button
-                    onClick={() => setSpeed(Math.min(1200, speed + 5))}
-                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
-                    aria-label="Increase WPM"
-                  >
-                    +
-                  </button>
-                </div>
-                <div className="flex justify-between text-xs text-gray-500 mt-1">
-                  <span>50</span>
-                  <span>1200</span>
-                </div>
-              </div>
+              {/* Mobile: clean compact layout */}
+              <div className="md:hidden p-4">
+                {/* Row 1: Mode + Speed + Font */}
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  {/* Mode Toggle */}
+                  <div className="flex bg-gray-100 rounded-lg p-0.5">
+                    <button
+                      onClick={() => { setMode("run"); handleReset(); }}
+                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${mode === "run" ? "bg-white shadow text-gray-900" : "text-gray-500"}`}
+                    >
+                      Run
+                    </button>
+                    <button
+                      onClick={() => { setMode("flash"); handleReset(); }}
+                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${mode === "flash" ? "bg-white shadow text-gray-900" : "text-gray-500"}`}
+                    >
+                      Flash
+                    </button>
+                  </div>
 
-              {/* Font Size Control */}
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">
-                  Font: <span className="text-blue-600">{fontSize}px</span>
-                </label>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setFontSize(Math.max(12, fontSize - 2))}
-                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
-                    aria-label="Decrease font size"
-                  >
-                    −
-                  </button>
-                  <input
-                    type="range"
-                    min="12"
-                    max="48"
-                    step="2"
-                    value={fontSize}
-                    onChange={(e) => setFontSize(Number(e.target.value))}
-                    className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                  />
-                  <button
-                    onClick={() => setFontSize(Math.min(48, fontSize + 2))}
-                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
-                    aria-label="Increase font size"
-                  >
-                    +
-                  </button>
-                </div>
-                <div className="flex justify-between text-xs text-gray-500 mt-1">
-                  <span>12</span>
-                  <span>48</span>
-                </div>
-              </div>
+                  {/* Speed */}
+                  <div className="flex items-center bg-gray-100 rounded-lg px-1.5 py-1">
+                    <span className="text-[10px] text-gray-500 font-medium mr-1">Speed</span>
+                    <button onClick={() => setSpeed(Math.max(50, speed - 10))} className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
+                    <span className="text-xs font-bold text-gray-900 min-w-[32px] text-center">{speed}</span>
+                    <button onClick={() => setSpeed(Math.min(1200, speed + 10))} className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
+                  </div>
 
-              {/* Playback Controls */}
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">
-                  Controls
-                </label>
+                  {/* Font */}
+                  <div className="flex items-center bg-gray-100 rounded-lg px-1.5 py-1">
+                    <span className="text-[10px] text-gray-500 font-medium mr-1">Size</span>
+                    <button onClick={() => setFontSize(Math.max(12, fontSize - 2))} className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
+                    <span className="text-xs font-bold text-gray-900 min-w-[24px] text-center">{fontSize}</span>
+                    <button onClick={() => setFontSize(Math.min(48, fontSize + 2))} className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
+                  </div>
+                </div>
+
+                {/* Row 2: Start + Reset */}
                 <div className="flex gap-2">
                   <button
                     onClick={isPlaying ? handlePause : handleStartReading}
                     disabled={!textInput.trim()}
-                    className="flex-1 bg-blue-600 text-white px-4 py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md disabled:shadow-none"
+                    className="flex-1 h-11 bg-blue-600 text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
                   >
                     {isPlaying ? (
-                      <>
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
-                        </svg>
-                        <span className="hidden sm:inline">Pause</span>
-                      </>
+                      <><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>Pause</>
                     ) : (
-                      <>
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                        </svg>
-                        <span className="hidden sm:inline">Start</span>
-                      </>
+                      <><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" /></svg>Start</>
                     )}
                   </button>
+                  <button onClick={handleReset} className="w-11 h-11 flex items-center justify-center rounded-xl bg-gray-100 text-gray-600 hover:bg-gray-200" title="Reset" aria-label="Reset">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Desktop: full grid */}
+              <div className="hidden md:block p-4 md:p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Mode</label>
+                <div className="flex gap-2">
                   <button
-                    onClick={handleReset}
-                    className="px-4 py-2.5 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-all"
-                    title="Reset"
+                    onClick={() => { setMode("run"); handleReset(); }}
+                    className={`flex-1 px-4 py-2.5 rounded-lg font-medium transition-all ${mode === "run" ? "bg-blue-600 text-white shadow-md" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+                  >Run</button>
+                  <button
+                    onClick={() => { setMode("flash"); handleReset(); }}
+                    className={`flex-1 px-4 py-2.5 rounded-lg font-medium transition-all ${mode === "flash" ? "bg-blue-600 text-white shadow-md" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+                  >Flash</button>
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Speed: <span className="text-blue-600">{speed} WPM</span></label>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setSpeed(Math.max(50, speed - 5))} className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" aria-label="Decrease WPM">−</button>
+                  <input type="range" min="50" max="1200" step="5" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                  <button onClick={() => setSpeed(Math.min(1200, speed + 5))} className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" aria-label="Increase WPM">+</button>
+                </div>
+                <div className="flex justify-between text-xs text-gray-500 mt-1"><span>50</span><span>1200</span></div>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Font: <span className="text-blue-600">{fontSize}px</span></label>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setFontSize(Math.max(12, fontSize - 2))} className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" aria-label="Decrease font size">−</button>
+                  <input type="range" min="12" max="48" step="2" value={fontSize} onChange={(e) => setFontSize(Number(e.target.value))} className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                  <button onClick={() => setFontSize(Math.min(48, fontSize + 2))} className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" aria-label="Increase font size">+</button>
+                </div>
+                <div className="flex justify-between text-xs text-gray-500 mt-1"><span>12</span><span>48</span></div>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Controls</label>
+                <div className="flex gap-2 items-stretch">
+                  <button
+                    onClick={isPlaying ? handlePause : handleStartReading}
+                    disabled={!textInput.trim()}
+                    className="flex-1 min-h-[44px] px-5 py-3 rounded-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md disabled:shadow-none"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
+                    {isPlaying ? <><svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg><span className="hidden sm:inline">Pause</span></> : <><svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" /></svg><span className="hidden sm:inline">Start</span></>}
+                  </button>
+                  <button onClick={handleReset} className="min-w-[44px] min-h-[44px] w-12 flex items-center justify-center bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-all" title="Reset" aria-label="Reset">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
                   </button>
                 </div>
               </div>
             </div>
+              </div>
             </div>
           </div>
         </div>
