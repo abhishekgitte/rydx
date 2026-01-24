@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Bionic reading highlight */
+.bionic-bold {
+  font-weight: 600;
+}
+
+.bionic-normal {
+  font-weight: 400;
+}
+
+/* Reading highlight - blue underline */
+.word-highlight {
+  text-decoration: underline;
+  text-decoration-color: #3b82f6;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  color: #1f2937;
+  opacity: 1;
+  transition: opacity 0.1s ease-out, text-decoration-color 0.1s ease-out;
+}
+
+.word-faded {
+  opacity: 0.4;
+  transition: opacity 0.1s ease-out;
+}
