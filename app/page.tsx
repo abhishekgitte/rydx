@@ -32,7 +32,7 @@ export default function Home() {
       
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative mesh-gradient py-24 lg:py-36 overflow-hidden">
+        <section className="relative mesh-gradient pt-10 pb-16 lg:pt-14 lg:pb-24 overflow-hidden">
           <div className="absolute inset-0 bg-white/40 dark:bg-slate-950/40 backdrop-blur-[2px]"></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div 
@@ -51,7 +51,7 @@ export default function Home() {
               </motion.div>
               
               <h1 className="font-extrabold text-slate-900 dark:text-white mb-8 tracking-tight">
-                <span className="block text-2xl md:text-3xl font-bold text-slate-700 dark:text-slate-300">
+                <span className="block text-xl md:text-3xl font-bold text-slate-700 dark:text-slate-300">
                   Train your{" "}
                   <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
                     Brain
@@ -61,7 +61,7 @@ export default function Home() {
                     Mind
                   </span>
                 </span>
-                <span className="block mt-3 text-5xl md:text-7xl">
+                <span className="block mt-4 text-4xl md:text-7xl leading-[1.15]">
                   Read{" "}
                   <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
                     3.5X
@@ -73,7 +73,7 @@ export default function Home() {
                 </span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg md:text-2xl text-slate-600 dark:text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed px-4 md:px-0">
                 Unlock your <span className="text-slate-900 dark:text-white font-semibold">true potential</span> by breaking mental blocks.{" "}
                 <span className="text-slate-900 dark:text-white font-semibold">RydX</span> helps students build{" "}
                 <span className="text-slate-900 dark:text-white font-semibold">focus</span>, read{" "}
@@ -82,14 +82,14 @@ export default function Home() {
                 <span className="text-slate-900 dark:text-white font-semibold">CAT, GMAT, IELTS</span>, and any exam with reading comprehension.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center px-4 md:px-0">
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href="/test" className="btn-primary flex items-center gap-2 px-10 py-4 text-lg">
+                  <Link href="/test" className="btn-primary flex items-center justify-center gap-2 px-8 py-4 text-base md:text-lg">
                     Take a Quick Test <ChevronRight className="w-5 h-5" />
                   </Link>
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href="/practice" className="btn-secondary flex items-center gap-2 px-10 py-4 text-lg">
+                  <Link href="/practice" className="btn-secondary flex items-center justify-center gap-2 px-8 py-4 text-base md:text-lg">
                     Start Practice <ArrowRight className="w-5 h-5" />
                   </Link>
                 </motion.div>
@@ -100,7 +100,7 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 1 }}
-                className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto border-t border-slate-200/50 dark:border-slate-800/50 pt-12"
+                className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto border-t border-slate-200/50 dark:border-slate-800/50 pt-8 md:pt-12"
               >
                 <div className="text-center">
                   <div className="text-xl font-bold text-slate-900 dark:text-white mb-1">Better Focus</div>

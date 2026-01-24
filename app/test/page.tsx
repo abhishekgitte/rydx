@@ -169,36 +169,38 @@ export default function TestPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-slate-50/50">
       <Header />
 
-      <main className="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-200/60 overflow-hidden">
-          <div className="px-6 sm:px-8 pt-8 pb-6 border-b border-slate-100">
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+      <main className="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+        <div className="bg-white rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-200/50 overflow-hidden">
+          <div className="px-6 sm:px-10 pt-10 pb-8 border-b border-slate-100">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
               Reading Speed Test
             </h1>
-            <p className="text-slate-600 mt-2 text-sm sm:text-base">
+            <p className="text-slate-500 text-base sm:text-lg font-medium max-w-3xl">
               Read the passage at your normal pace, then answer 5 comprehension questions to measure your speed and understanding.
             </p>
           </div>
 
-          <div className="p-6 sm:p-8">
+          <div className="p-6 sm:p-10">
             {!isReading && !showQuestions && !results && (
-              <div className="text-center py-12 sm:py-16">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-100 text-indigo-600 mb-6">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <div className="text-center py-12 sm:py-20">
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-indigo-50 text-indigo-500 mb-8 ring-8 ring-indigo-50/50">
+                  <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-slate-900 mb-3">Ready to Test Your Speed?</h2>
-                <p className="text-slate-600 text-sm sm:text-base max-w-md mx-auto mb-2">
-                  You&apos;ll read a ~600-word passage, then click <strong>Finish Reading</strong> below the passage when done.
-                </p>
-                <p className="text-slate-500 text-xs sm:text-sm mb-8">≈ 600 words · 5 questions</p>
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Ready to Test Your Speed?</h2>
+                <div className="space-y-2 mb-10">
+                  <p className="text-slate-500 text-base sm:text-lg max-w-md mx-auto">
+                    You&apos;ll read a ~600-word passage, then click <strong className="text-slate-900">Finish Reading</strong> below the passage when done.
+                  </p>
+                  <p className="text-slate-400 text-sm sm:text-base font-medium">≈ 600 words · 5 questions</p>
+                </div>
                 <button
                   onClick={startTest}
-                  className="bg-indigo-600 text-white px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-lg shadow-indigo-500/25"
+                  className="bg-[#4f46e5] text-white px-10 py-4 rounded-xl text-lg font-bold hover:bg-[#4338ca] active:scale-[0.98] transition-all shadow-[0_10px_20px_-5px_rgba(79,70,229,0.3)]"
                 >
                   Start Reading Test
                 </button>
