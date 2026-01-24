@@ -125,7 +125,8 @@ export default function PracticePage() {
           {/* Page Title */}
           <div className="mb-6">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Reading Practice</h1>
-            <p className="text-gray-600 mt-1">Paste your text and practice reading with speed control</p>
+            <p className="text-gray-600 mt-1">Paste your text and practice reading with speed control.</p>
+            <p className="text-gray-600 mt-1">Adjust your controls before your start!</p>
           </div>
 
           {/* Unified Text Input and Reading Display Area */}
@@ -133,13 +134,16 @@ export default function PracticePage() {
             {/* Header with Clear Button */}
             <div className="flex items-center justify-between mb-4">
               <label className="block text-sm font-semibold text-gray-900">
-                {isEditing ? "Paste or type your text here" : "Reading Area"}
+                {isEditing ? "RydX Area!" : "Reading Area"}
               </label>
               <div className="flex items-center gap-3">
                 {textInput.trim() && (
                   <>
                     <span className="text-sm text-gray-600">
-                      <span className="font-semibold">{words.length}</span> words
+                      Words: <span className="font-semibold">{words.length}</span>
+                    </span>
+                    <span className="text-sm text-gray-600">
+                      Est. Read Time: <span className="font-semibold">{Math.ceil(words.length / speed)} min</span>
                     </span>
                     <button
                       onClick={handleClearText}
@@ -261,6 +265,18 @@ export default function PracticePage() {
                 </div>
               )}
             </div>
+
+            {/* Progress Bar - Below Read Area */}
+            {!isEditing && textInput.trim() && words.length > 0 && (
+              <div className="mt-4 px-2">
+                <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                  <div
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-300 ease-out"
+                    style={{ width: `${Math.min(100, (currentWordIndex / words.length) * 100)}%` }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Controls Bar - Responsive Layout */}
@@ -306,15 +322,31 @@ export default function PracticePage() {
                 <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">
                   Speed: <span className="text-blue-600">{speed} WPM</span>
                 </label>
-                <input
-                  type="range"
-                  min="50"
-                  max="1200"
-                  step="5"
-                  value={speed}
-                  onChange={(e) => setSpeed(Number(e.target.value))}
-                  className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                />
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setSpeed(Math.max(50, speed - 5))}
+                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
+                    aria-label="Decrease WPM"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="range"
+                    min="50"
+                    max="1200"
+                    step="5"
+                    value={speed}
+                    onChange={(e) => setSpeed(Number(e.target.value))}
+                    className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                  />
+                  <button
+                    onClick={() => setSpeed(Math.min(1200, speed + 5))}
+                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
+                    aria-label="Increase WPM"
+                  >
+                    +
+                  </button>
+                </div>
                 <div className="flex justify-between text-xs text-gray-500 mt-1">
                   <span>50</span>
                   <span>1200</span>
@@ -326,15 +358,31 @@ export default function PracticePage() {
                 <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">
                   Font: <span className="text-blue-600">{fontSize}px</span>
                 </label>
-                <input
-                  type="range"
-                  min="12"
-                  max="48"
-                  step="2"
-                  value={fontSize}
-                  onChange={(e) => setFontSize(Number(e.target.value))}
-                  className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                />
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setFontSize(Math.max(12, fontSize - 2))}
+                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
+                    aria-label="Decrease font size"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="range"
+                    min="12"
+                    max="48"
+                    step="2"
+                    value={fontSize}
+                    onChange={(e) => setFontSize(Number(e.target.value))}
+                    className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                  />
+                  <button
+                    onClick={() => setFontSize(Math.min(48, fontSize + 2))}
+                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
+                    aria-label="Increase font size"
+                  >
+                    +
+                  </button>
+                </div>
                 <div className="flex justify-between text-xs text-gray-500 mt-1">
                   <span>12</span>
                   <span>48</span>
@@ -380,24 +428,6 @@ export default function PracticePage() {
                 </div>
               </div>
             </div>
-
-            {/* Progress Bar */}
-            {textInput.trim() && words.length > 0 && (
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium text-gray-700">Progress</span>
-                  <span className="text-sm font-semibold text-blue-600">
-                    {Math.round((currentWordIndex / words.length) * 100)}%
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                  <div
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-300 ease-out"
-                    style={{ width: `${(currentWordIndex / words.length) * 100}%` }}
-                  />
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </main>
