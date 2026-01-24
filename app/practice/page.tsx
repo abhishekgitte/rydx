@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useFullscreen } from "@/hooks/useFullscreen";
 
 type ReadingMode = "run" | "flash";
 
@@ -17,6 +18,14 @@ export default function PracticePage() {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const wordRefs = useRef<{ [key: number]: HTMLSpanElement | null }>({});
+  const fullscreenContainerRef = useRef<HTMLDivElement>(null);
+  const { isFullscreen, setElement, toggleFullscreen } = useFullscreen<HTMLDivElement>();
+
+  useEffect(() => {
+    if (fullscreenContainerRef.current) {
+      setElement(fullscreenContainerRef.current);
+    }
+  }, [setElement]);
 
   const words = textInput.trim() ? textInput.split(/\s+/).filter(word => word.length > 0) : [];
 
@@ -53,7 +62,8 @@ export default function PracticePage() {
         setCurrentWordIndex((prev) => {
           if (prev >= words.length - 1) {
             setIsPlaying(false);
-            return prev;
+            // Return the last word index to ensure progress reaches 100%
+            return words.length - 1;
           }
           return prev + 1;
         });
@@ -106,6 +116,44 @@ export default function PracticePage() {
     }
   };
 
+  // Keyboard shortcuts for Spacebar and Enter
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if user is typing in an input/textarea
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+        return;
+      }
+
+      // Spacebar or Enter to start/pause/resume
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        
+        if (!textInput.trim()) return;
+        
+        if (isEditing) {
+          setIsEditing(false);
+          if (currentWordIndex >= words.length - 1) {
+            setCurrentWordIndex(0);
+          }
+          setIsPlaying(true);
+        } else if (isPlaying) {
+          setIsPlaying(false);
+        } else {
+          if (currentWordIndex >= words.length - 1) {
+            setCurrentWordIndex(0);
+          }
+          setIsPlaying(true);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isPlaying, isEditing, textInput, currentWordIndex, words.length]);
+
   // Bionic reading: bold first part of word
   const getBionicWord = (word: string) => {
     const length = word.length;
@@ -118,23 +166,32 @@ export default function PracticePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header />
+      {!isFullscreen && <Header />}
       
-      <main className="flex-grow w-full px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-        <div className="max-w-7xl mx-auto">
-          {/* Page Title */}
-          <div className="mb-6">
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Reading Practice</h1>
-            <p className="text-gray-600 mt-1">Paste your text and practice reading with speed control.</p>
-            <p className="text-gray-600 mt-1">Adjust your controls before your start!</p>
-          </div>
+      <main className={`flex-grow w-full ${isFullscreen ? 'p-0' : 'px-4 sm:px-6 lg:px-8 py-6 lg:py-8'}`}>
+        <div className={`${isFullscreen ? 'h-full' : 'max-w-7xl mx-auto'}`}>
+          {!isFullscreen && (
+            <>
+              {/* Page Title */}
+              <div className="mb-6">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Reading Practice</h1>
+                <p className="text-gray-600 mt-1">Paste your text and practice reading with speed control.</p>
+                <p className="text-gray-600 mt-1">Adjust your controls before your start!</p>
+              </div>
+            </>
+          )}
 
-          {/* Unified Text Input and Reading Display Area */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+          {/* Fullscreen Container - Reading Area + Controls */}
+          <div 
+            ref={fullscreenContainerRef}
+            className={`${isFullscreen ? 'h-full flex flex-col bg-gray-50 p-6' : ''}`}
+          >
+            {/* Unified Text Input and Reading Display Area */}
+            <div className={`bg-white rounded-2xl shadow-lg p-6 ${isFullscreen ? 'mb-0 flex-1 flex flex-col' : 'mb-6'}`}>
             {/* Header with Clear Button */}
             <div className="flex items-center justify-between mb-4">
               <label className="block text-sm font-semibold text-gray-900">
-                {isEditing ? "RydX Area!" : "Reading Area"}
+                RydX Area!
               </label>
               <div className="flex items-center gap-3">
                 {textInput.trim() && (
@@ -145,17 +202,40 @@ export default function PracticePage() {
                     <span className="text-sm text-gray-600">
                       Est. Read Time: <span className="font-semibold">{Math.ceil(words.length / speed)} min</span>
                     </span>
-                    <button
-                      onClick={handleClearText}
-                      className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-lg font-medium hover:bg-red-100 transition-colors text-sm"
-                      title="Clear all text"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                      <span className="hidden sm:inline">Clear</span>
-                    </button>
                   </>
+                )}
+                <button
+                  onClick={toggleFullscreen}
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium hover:bg-blue-100 transition-colors text-sm"
+                  title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+                >
+                  {isFullscreen ? (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      <span className="hidden sm:inline">Exit</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                      </svg>
+                      <span className="hidden sm:inline">Fullscreen</span>
+                    </>
+                  )}
+                </button>
+                {textInput.trim() && (
+                  <button
+                    onClick={handleClearText}
+                    className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-lg font-medium hover:bg-red-100 transition-colors text-sm"
+                    title="Clear all text"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    <span className="hidden sm:inline">Clear</span>
+                  </button>
                 )}
                 {!isEditing && textInput.trim() && (
                   <button
@@ -171,7 +251,11 @@ export default function PracticePage() {
             {/* Unified Content Area - Fixed Height with Scroll */}
             <div
               className="border-2 border-gray-200 rounded-xl bg-gray-50 relative overflow-hidden"
-              style={{ height: "60vh", minHeight: "400px" }}
+              style={{ 
+                height: isFullscreen ? "calc(100vh - 320px)" : "60vh", 
+                minHeight: isFullscreen ? "500px" : "400px",
+                flex: isFullscreen ? "1 1 auto" : "none"
+              }}
             >
               {isEditing ? (
                 <textarea
@@ -272,15 +356,17 @@ export default function PracticePage() {
                 <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                   <div
                     className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-300 ease-out"
-                    style={{ width: `${Math.min(100, (currentWordIndex / words.length) * 100)}%` }}
+                    style={{ 
+                      width: `${Math.min(100, words.length > 0 ? ((currentWordIndex + 1) / words.length) * 100 : 0)}%` 
+                    }}
                   />
                 </div>
               </div>
             )}
           </div>
 
-          {/* Controls Bar - Responsive Layout */}
-          <div className="bg-white rounded-2xl shadow-lg p-4 md:p-6">
+            {/* Controls Bar - Responsive Layout */}
+            <div className={`bg-white rounded-2xl shadow-lg p-4 md:p-6 ${isFullscreen ? 'mt-4' : ''}`}>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               {/* Mode Selection */}
               <div>
@@ -412,7 +498,7 @@ export default function PracticePage() {
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                         </svg>
-                        <span className="hidden sm:inline">Play</span>
+                        <span className="hidden sm:inline">Start</span>
                       </>
                     )}
                   </button>
@@ -429,10 +515,11 @@ export default function PracticePage() {
               </div>
             </div>
           </div>
+          </div>
         </div>
       </main>
 
-      <Footer />
+      {!isFullscreen && <Footer />}
     </div>
   );
 }

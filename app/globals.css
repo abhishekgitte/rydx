@@ -50,3 +50,11 @@ body {
   opacity: 0.4;
   transition: opacity 0.1s ease-out;
 }
+
+/* Fullscreen mode styles */
+:fullscreen,
+:-webkit-full-screen,
+:-moz-full-screen,
+:-ms-fullscreen {
+  background: #f9fafb;
+}
