@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
@@ -85,6 +85,8 @@ export default function TestPage() {
     comprehension: number;
   } | null>(null);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [hasReachedEnd, setHasReachedEnd] = useState(false);
+  const articleContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isReading || !startTime) return;
@@ -94,6 +96,31 @@ export default function TestPage() {
     return () => clearInterval(interval);
   }, [isReading, startTime]);
 
+  const checkReachedEnd = useCallback(() => {
+    const el = articleContainerRef.current;
+    if (!el) return false;
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const threshold = 24;
+    if (scrollHeight <= clientHeight) return true;
+    return scrollTop + clientHeight >= scrollHeight - threshold;
+  }, []);
+
+  useEffect(() => {
+    if (!isReading) return;
+    const el = articleContainerRef.current;
+    if (!el) return;
+    const updateReachedEnd = () => setHasReachedEnd(checkReachedEnd());
+    updateReachedEnd();
+    const delayedCheck = setTimeout(updateReachedEnd, 200);
+    el.addEventListener("scroll", updateReachedEnd);
+    window.addEventListener("resize", updateReachedEnd);
+    return () => {
+      clearTimeout(delayedCheck);
+      el.removeEventListener("scroll", updateReachedEnd);
+      window.removeEventListener("resize", updateReachedEnd);
+    };
+  }, [isReading, checkReachedEnd]);
+
   const startTest = () => {
     setStartTime(Date.now());
     setIsReading(true);
@@ -101,11 +128,12 @@ export default function TestPage() {
     setAnswers({});
     setResults(null);
     setElapsedSeconds(0);
+    setHasReachedEnd(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const finishReading = () => {
-    if (startTime) {
+    if (startTime && hasReachedEnd) {
       setEndTime(Date.now());
       setIsReading(false);
       setShowQuestions(true);
@@ -186,17 +214,26 @@ export default function TestPage() {
                   </span>
                   <span className="text-slate-500 tabular-nums">{formatTime(elapsedSeconds)}</span>
                 </div>
-                <div className="rounded-xl bg-slate-50/80 border border-slate-200/80 p-5 sm:p-6 max-h-[60vh] overflow-y-auto">
-                  <article className="prose prose-slate max-w-none prose-p:text-slate-700 prose-p:leading-relaxed prose-p:mb-4 prose-p:text-base md:prose-p:text-[15px]">
-                    <p className="whitespace-pre-wrap text-slate-700 leading-relaxed text-base md:text-[15px]">
+                <div
+                  ref={articleContainerRef}
+                  className="rounded-xl bg-slate-50/80 border border-slate-200/80 p-5 sm:p-6 max-h-[60vh] overflow-y-auto"
+                >
+                  <article className="prose prose-slate max-w-none prose-p:text-slate-700 prose-p:leading-relaxed prose-p:mb-4 prose-p:text-[18px]">
+                    <p className="whitespace-pre-wrap text-slate-700 leading-relaxed text-[18px]">
                       {testArticle}
                     </p>
                   </article>
                 </div>
-                <div className="flex justify-center pt-2">
+                <div className="flex flex-col items-center gap-2 pt-2">
+                  {!hasReachedEnd && (
+                    <p className="text-slate-500 text-sm">
+                      Scroll to the end of the passage to enable <strong>Finish Reading</strong>.
+                    </p>
+                  )}
                   <button
                     onClick={finishReading}
-                    className="bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-lg shadow-indigo-500/25"
+                    disabled={!hasReachedEnd}
+                    className="bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-lg shadow-indigo-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600"
                   >
                     Finish Reading
                   </button>
