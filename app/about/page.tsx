@@ -88,7 +88,7 @@ export default function AboutPage() {
                       { icon: <Zap className="text-yellow-500" />, label: "Fast" },
                       { icon: <Brain className="text-purple-500" />, label: "Smart" },
                       { icon: <Target className="text-blue-500" />, label: "Targeted" },
-                      { icon: <Users className="text-emerald-500" />, label: "Proven" },
+                      { icon: <Users className="text-emerald-500" />, label: "Focused" },
                     ].map((item, i) => (
                       <div key={i} className="p-6 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col items-center gap-3">
                         <div className="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm">{item.icon}</div>
@@ -139,7 +139,7 @@ export default function AboutPage() {
               {/* Call to Action */}
               <motion.div variants={itemVariants} className="bg-slate-900 dark:bg-blue-600 rounded-[3rem] p-12 md:p-16 text-center shadow-2xl">
                 <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-8 tracking-tight">
-                  Start Your Journey to 400+ WPM
+                  Ready to Read Faster?
                 </h2>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/test" className="px-10 py-4 bg-white text-slate-900 dark:text-blue-600 rounded-2xl font-bold hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
