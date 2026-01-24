@@ -62,8 +62,8 @@ export default function PracticePage() {
         setCurrentWordIndex((prev) => {
           if (prev >= words.length - 1) {
             setIsPlaying(false);
-            // Return the last word index to ensure progress reaches 100%
-            return words.length - 1;
+            // Return words.length to trigger completion message
+            return words.length;
           }
           return prev + 1;
         });
@@ -357,7 +357,7 @@ export default function PracticePage() {
                   <div
                     className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-300 ease-out"
                     style={{ 
-                      width: `${Math.min(100, words.length > 0 ? ((currentWordIndex + 1) / words.length) * 100 : 0)}%` 
+                      width: `${Math.min(100, words.length > 0 ? (Math.min(currentWordIndex + 1, words.length) / words.length) * 100 : 0)}%` 
                     }}
                   />
                 </div>
@@ -514,7 +514,7 @@ export default function PracticePage() {
                 </div>
               </div>
             </div>
-          </div>
+            </div>
           </div>
         </div>
       </main>
