@@ -86,6 +86,7 @@ export default function TestPage() {
   } | null>(null);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [hasReachedEnd, setHasReachedEnd] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const articleContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -129,6 +130,7 @@ export default function TestPage() {
     setResults(null);
     setElapsedSeconds(0);
     setHasReachedEnd(false);
+    setIsReady(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -178,9 +180,6 @@ export default function TestPage() {
             <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
               Reading Speed Test
             </h1>
-            <p className="text-slate-500 text-base sm:text-lg font-medium max-w-3xl">
-              Read the passage at your normal pace, then answer 5 comprehension questions to measure your speed and understanding.
-            </p>
           </div>
 
           <div className="p-6 sm:p-10">
@@ -191,16 +190,50 @@ export default function TestPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Ready to Test Your Speed?</h2>
-                <div className="space-y-2 mb-10">
-                  <p className="text-slate-500 text-base sm:text-lg max-w-md mx-auto">
-                    You&apos;ll read a ~600-word passage, then click <strong className="text-slate-900">Finish Reading</strong> below the passage when done.
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                  Ready to Test Your Speed?
+                </h2>
+                
+                <div className="max-w-2xl mx-auto mb-10">
+                  <p className="text-slate-600 text-lg sm:text-xl leading-relaxed">
+                    Read the short passage at your normal pace. When you&apos;re finished, click <strong className="text-slate-900">Finish Reading</strong> below the passage, then answer a few comprehension questions to measure your speed and understanding.
                   </p>
-                  <p className="text-slate-400 text-sm sm:text-base font-medium">≈ 600 words · 5 questions</p>
                 </div>
+
+                <div className="max-w-sm mx-auto p-6 rounded-2xl bg-slate-50 border border-slate-100 mb-10 transition-all hover:shadow-md">
+                  <p className="text-slate-900 text-lg font-bold mb-4">Are you ready?</p>
+                  <label 
+                    htmlFor="ready-checkbox" 
+                    className={`flex items-center justify-center gap-3 p-4 rounded-xl border-2 transition-all cursor-pointer ${
+                      isReady 
+                        ? "bg-indigo-50 border-indigo-200 text-indigo-700 shadow-sm" 
+                        : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
+                    }`}
+                  >
+                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                      isReady ? "bg-indigo-600 border-indigo-600" : "bg-white border-slate-300"
+                    }`}>
+                      {isReady && (
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                    </div>
+                    <input
+                      type="checkbox"
+                      id="ready-checkbox"
+                      checked={isReady}
+                      onChange={(e) => setIsReady(e.target.checked)}
+                      className="hidden"
+                    />
+                    <span className="text-lg font-bold tracking-tight">Yes, I am ready</span>
+                  </label>
+                </div>
+
                 <button
                   onClick={startTest}
-                  className="bg-[#4f46e5] text-white px-10 py-4 rounded-xl text-lg font-bold hover:bg-[#4338ca] active:scale-[0.98] transition-all shadow-[0_10px_20px_-5px_rgba(79,70,229,0.3)]"
+                  disabled={!isReady}
+                  className="bg-[#4f46e5] text-white px-12 py-5 rounded-2xl text-xl font-bold hover:bg-[#4338ca] active:scale-[0.98] transition-all shadow-[0_20px_40px_-10px_rgba(79,70,229,0.4)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[#4f46e5] disabled:shadow-none"
                 >
                   Start Reading Test
                 </button>
@@ -324,6 +357,7 @@ export default function TestPage() {
                       setEndTime(null);
                       setResults(null);
                       setAnswers({});
+                      setIsReady(false);
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
                     className="bg-slate-200 text-slate-800 px-6 py-3 rounded-xl text-base font-semibold hover:bg-slate-300 transition-colors"
