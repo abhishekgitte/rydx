@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Zap, BookOpen, Settings, ChevronRight, ArrowRight, Clock, Trophy } from "lucide-react";
+import { Zap, BookOpen, Settings, Clock, Trophy, Target, Gauge, Brain } from "lucide-react";
 
 export default function Home() {
   const containerVariants = {
@@ -27,7 +27,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-slate-950">
+    <div className="min-h-screen flex flex-col bg-slate-50/50 dark:bg-slate-950">
       <Header />
       
       <main className="flex-grow">
@@ -85,49 +85,106 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center px-4 md:px-0">
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link href="/test" className="btn-primary flex items-center justify-center gap-2 px-8 py-4 text-base md:text-lg">
-                    Take a Quick Test <ChevronRight className="w-5 h-5" />
+                    Take a Quick Test
                   </Link>
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link href="/practice" className="btn-secondary flex items-center justify-center gap-2 px-8 py-4 text-base md:text-lg">
-                    Start Practice <ArrowRight className="w-5 h-5" />
+                    Start Practice
                   </Link>
                 </motion.div>
               </div>
+            </motion.div>
+          </div>
+        </section>
 
-              {/* Core Value Props */}
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 1 }}
-                className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto border-t border-slate-200/50 dark:border-slate-800/50 pt-8 md:pt-12"
-              >
-                <div className="text-center">
-                  <div className="text-xl font-bold text-slate-900 dark:text-white mb-1">Better Focus</div>
-                  <div className="text-sm text-slate-500">Stay locked in from start to finish</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl font-bold text-slate-900 dark:text-white mb-1">Faster Speed</div>
-                  <div className="text-sm text-slate-500">Build pace with guided practice</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl font-bold text-slate-900 dark:text-white mb-1">Better Comprehension</div>
-                  <div className="text-sm text-slate-500">Understand more, even at higher speeds</div>
-                </div>
-              </motion.div>
+        {/* Value Props Section */}
+        <section className="py-24 bg-white dark:bg-slate-950">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-20">
+              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
+                The three pillars of <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">peak performance</span>
+              </h2>
+              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                Speed reading isn't just about moving your eyes faster. It's a cognitive shift that redefines how you process information.
+              </p>
+            </div>
+
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12"
+            >
+              {[
+                {
+                  title: "Erase Mental Noise",
+                  subtitle: "Better Focus",
+                  description: "Eliminate 'sub-vocalization' and mind-wandering. Our guided modes keep you locked into complex passages without the urge to drift.",
+                  icon: Target,
+                  color: "text-blue-600 dark:text-blue-400",
+                  bg: "bg-blue-50 dark:bg-blue-900/20",
+                  border: "border-blue-100 dark:border-blue-800/50",
+                },
+                {
+                  title: "Break the WPM Ceiling",
+                  subtitle: "Faster Speed",
+                  description: "Move past the standard 200 WPM limit. Learn to 'chunk' phrases and use peripheral vision to sweep through dense exam paragraphs.",
+                  icon: Gauge,
+                  color: "text-indigo-600 dark:text-indigo-400",
+                  bg: "bg-indigo-50 dark:bg-indigo-900/20",
+                  border: "border-indigo-100 dark:border-indigo-800/50",
+                },
+                {
+                  title: "Retain the Core Ideas",
+                  subtitle: "Deep Comprehension",
+                  description: "Speed is useless without retention. We bridge the gap between fast scanning and deep cognitive understanding of the text.",
+                  icon: Brain,
+                  color: "text-violet-600 dark:text-violet-400",
+                  bg: "bg-violet-50 dark:bg-violet-900/20",
+                  border: "border-violet-100 dark:border-violet-800/50",
+                },
+              ].map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    variants={itemVariants}
+                    className={`flex flex-col p-8 rounded-3xl border ${item.border} hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-500 group bg-slate-50/30 dark:bg-slate-900/10`}
+                  >
+                    <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon className={`w-7 h-7 ${item.color}`} />
+                    </div>
+                    <span className={`text-xs font-bold ${item.color} uppercase tracking-widest mb-3`}>
+                      {item.subtitle}
+                    </span>
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+                      {item.title}
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section className="py-24 bg-white dark:bg-slate-950">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="section-pattern py-28 relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/30 dark:via-blue-950/20 to-transparent pointer-events-none" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
-                Everything you need to practice
+              <span className="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-4">
+                Why RydX
+              </span>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
+                Built for the reading that <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">matters most</span>
               </h2>
-              <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                Simple tools for daily training: measure your baseline, practice with guidance, and increase speed step by step.
+              <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                From RC sections in CAT and GMAT to IELTS reading and beyond—train with tools designed for real exam conditions and measurable progress.
               </p>
             </div>
 
@@ -136,45 +193,48 @@ export default function Home() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-10"
+              className="grid grid-cols-1 md:grid-cols-3 gap-8"
             >
               {[
                 {
-                  title: "Speed + Comprehension Test",
-                  description: "Start with a quick test to see your reading speed and how well you understood the passage.",
+                  title: "Measure What Matters",
+                  description: "Get an honest baseline: words per minute and comprehension score in one short test. No guesswork—just a clear starting point to beat.",
                   icon: <Clock className="w-8 h-8 text-white" />,
                   color: "bg-blue-600",
-                  gradient: "from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10",
-                  border: "border-blue-100 dark:border-blue-800",
+                  accent: "bg-blue-500/10 dark:bg-blue-500/20 border-blue-200 dark:border-blue-800",
+                  label: "Speed Test",
                 },
                 {
-                  title: "Two Practice Modes",
-                  description: "Run mode keeps the full text visible with guided highlighting. Flash mode helps you focus with one word at a time.",
+                  title: "Train With Intent",
+                  description: "Run mode guides your eyes with flowing highlights; Flash mode locks attention on one word at a time. Both build focus and reduce re-reading.",
                   icon: <BookOpen className="w-8 h-8 text-white" />,
-                  color: "bg-purple-600",
-                  gradient: "from-purple-50 to-pink-50 dark:from-purple-900/10 dark:to-pink-900/10",
-                  border: "border-purple-100 dark:border-purple-800",
+                  color: "bg-indigo-600",
+                  accent: "bg-indigo-500/10 dark:bg-indigo-500/20 border-indigo-200 dark:border-indigo-800",
+                  label: "Practice",
                 },
                 {
-                  title: "Adjust as you improve",
-                  description: "Control reading speed and text size so practice feels challenging—but still comfortable.",
+                  title: "Level Up When You’re Ready",
+                  description: "Tune speed and text size as you improve. Stay in the zone where it’s challenging but still comprehensible—that’s where gains happen.",
                   icon: <Settings className="w-8 h-8 text-white" />,
-                  color: "bg-emerald-600",
-                  gradient: "from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-emerald-900/10",
-                  border: "border-green-100 dark:border-green-800",
+                  color: "bg-violet-600",
+                  accent: "bg-violet-500/10 dark:bg-violet-500/20 border-violet-200 dark:border-violet-800",
+                  label: "Settings",
                 },
               ].map((feature, idx) => (
                 <motion.div
                   key={idx}
                   variants={itemVariants}
-                  whileHover={{ y: -10 }}
-                  className={`p-10 rounded-3xl bg-gradient-to-br ${feature.gradient} border ${feature.border} shadow-sm hover:shadow-2xl transition-all duration-300`}
+                  whileHover={{ y: -8 }}
+                  className={`p-8 md:p-10 rounded-2xl border ${feature.accent} bg-white dark:bg-slate-900/80 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm`}
                 >
-                  <div className={`w-16 h-16 ${feature.color} rounded-2xl flex items-center justify-center mb-8 shadow-lg`}>
-                    {feature.icon}
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className={`w-14 h-14 ${feature.color} rounded-xl flex items-center justify-center shadow-lg shadow-black/10`}>
+                      {feature.icon}
+                    </div>
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{feature.label}</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{feature.title}</h3>
-                  <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                  <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-4">{feature.title}</h3>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                     {feature.description}
                   </p>
                 </motion.div>
@@ -183,106 +243,33 @@ export default function Home() {
           </div>
         </section>
 
-        {/* How It Works */}
-        <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
-                A simple routine that works
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-              <motion.div 
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="space-y-12"
-              >
-                {[
-                  {
-                    step: 1,
-                    title: "Check your baseline",
-                    desc: "Read a short passage, then answer a few questions. This gives you a starting point for both speed and understanding.",
-                  },
-                  {
-                    step: 2,
-                    title: "Train your mind",
-                    desc: "Practice with guidance to build focus, reduce wandering thoughts, and stay engaged with what you read.",
-                  },
-                  {
-                    step: 3,
-                    title: "Increase speed gradually",
-                    desc: "When the current speed feels easy and comprehension stays solid, increase it a little and repeat.",
-                  },
-                ].map((step, idx) => (
-                  <div key={idx} className="flex items-start space-x-6">
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg">
-                      {step.step}
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{step.title}</h3>
-                      <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                        {step.desc}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="absolute -inset-4 bg-gradient-to-br from-blue-600 to-purple-600 rounded-[3rem] blur-2xl opacity-10"></div>
-                <div className="glass-card p-4 rounded-[2.5rem] relative overflow-hidden">
-                  <div className="aspect-video bg-slate-900 rounded-[1.8rem] flex items-center justify-center group overflow-hidden">
-                    <div className="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                    <div className="text-center relative z-10">
-                      <motion.div 
-                        whileHover={{ scale: 1.1 }}
-                        className="w-20 h-20 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl cursor-pointer"
-                      >
-                        <Zap className="w-10 h-10 fill-current" />
-                      </motion.div>
-                      <p className="text-white font-bold text-xl">Stay consistent</p>
-                      <p className="text-slate-400 mt-2">Short sessions add up over time</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
         {/* CTA Section */}
-        <section className="py-24">
+        <section className="section-slate py-28">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl shadow-blue-500/20"
+              className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl shadow-blue-900/30 border border-blue-500/20"
             >
-              <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-              <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl"></div>
+              <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-64 h-64 bg-indigo-400/20 rounded-full blur-3xl" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl" />
               
               <div className="relative z-10">
-                <Trophy className="w-16 h-16 text-blue-200 mx-auto mb-8 opacity-50" />
-                <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-8 tracking-tight">
-                  Start today
+                <Trophy className="w-14 h-14 text-amber-300/80 mx-auto mb-6" />
+                <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">
+                  Know your baseline. Then beat it.
                 </h2>
-                <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-2xl mx-auto leading-relaxed opacity-90">
-                  Take the speed test, then practice for a few minutes a day to build faster reading with better comprehension.
+                <p className="text-lg md:text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
+                  Run your first speed test in under two minutes. From there, a few sessions of focused practice each week will move the needle—whether you’re prepping for CAT, GMAT, IELTS, or any test where reading speed and comprehension count.
                 </p>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
                     href="/test"
-                    className="inline-block bg-white text-blue-600 px-12 py-5 rounded-2xl text-xl font-bold hover:bg-slate-50 transition-all shadow-xl shadow-black/10"
+                    className="inline-block bg-white text-blue-700 px-10 py-4 rounded-xl text-lg font-bold hover:bg-blue-50 transition-all shadow-xl shadow-black/15"
                   >
-                    Take the Test
+                    Take the speed test
                   </Link>
                 </motion.div>
               </div>

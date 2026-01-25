@@ -97,6 +97,31 @@ body {
       radial-gradient(at 80% 100%, hsla(242,47%,15%,1) 0, transparent 50%),
       radial-gradient(at 0% 0%, hsla(202,47%,15%,1) 0, transparent 50%);
   }
+
+  .section-warm {
+    background: linear-gradient(180deg, #fafbff 0%, #f1f5f9 100%);
+  }
+  .dark .section-warm {
+    background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  }
+
+  .section-slate {
+    background-color: #f8fafc;
+  }
+  .dark .section-slate {
+    background-color: #0c1222;
+  }
+
+  .section-pattern {
+    background-color: #ffffff;
+    background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .dark .section-pattern {
+    background-color: #0f172a;
+    background-image: radial-gradient(#1e293b 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
 }
 
 /* Bionic reading highlight */

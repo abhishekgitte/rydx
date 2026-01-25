@@ -34,24 +34,14 @@ export default function Header() {
         <div className={`flex justify-between items-center transition-all duration-300 ${
           scrolled ? "h-16" : "h-20"
         }`}>
-          {/* Logo */}
-          <Link 
-            href="/" 
-            className="flex items-center space-x-2 group"
-          >
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative flex items-center"
-            >
-              <div className="absolute inset-0 bg-blue-500 rounded-lg blur-md opacity-20 group-hover:opacity-40 transition-opacity"></div>
-              <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-lg mr-2 shadow-lg">
-                <Zap className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent tracking-tight">
-                RydX
-              </span>
-            </motion.div>
+          {/* Logo - same as footer */}
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-1.5 rounded-lg shadow-md">
+              <Zap className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              RydX
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
