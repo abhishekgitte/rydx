@@ -197,7 +197,7 @@ export default function PracticePage() {
                 </p>
               </div>
               
-              <div className="flex items-center gap-3 bg-white dark:bg-slate-900 px-4 py-2 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+              <div className="hidden md:flex items-center gap-3 bg-white dark:bg-slate-900 px-4 py-2 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
                 <div className="bg-amber-500/10 p-1.5 rounded-md">
                   <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
                 </div>
@@ -466,13 +466,13 @@ export default function PracticePage() {
                   <div className="flex bg-gray-100 rounded-lg p-0.5">
                     <button
                       onClick={() => { setMode("run"); handleReset(); }}
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${mode === "run" ? "bg-white shadow text-gray-900" : "text-gray-500"}`}
+                      className={`px-4 py-2.5 rounded-md text-xs font-semibold transition-all ${mode === "run" ? "bg-blue-600 text-white shadow-sm" : "text-gray-500"}`}
                     >
                       Run
                     </button>
                     <button
                       onClick={() => { setMode("flash"); handleReset(); }}
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${mode === "flash" ? "bg-white shadow text-gray-900" : "text-gray-500"}`}
+                      className={`px-4 py-2.5 rounded-md text-xs font-semibold transition-all ${mode === "flash" ? "bg-blue-600 text-white shadow-sm" : "text-gray-500"}`}
                     >
                       Flash
                     </button>
@@ -481,17 +481,17 @@ export default function PracticePage() {
                   {/* Speed */}
                   <div className="flex items-center bg-gray-100 rounded-lg px-1.5 py-1">
                     <span className="text-[10px] text-gray-500 font-medium mr-1">Speed</span>
-                    <button onClick={() => setSpeed(Math.max(50, speed - 10))} className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
+                    <button onClick={() => setSpeed(Math.max(50, speed - 10))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
                     <span className="text-xs font-bold text-gray-900 min-w-[32px] text-center">{speed}</span>
-                    <button onClick={() => setSpeed(Math.min(1200, speed + 10))} className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
+                    <button onClick={() => setSpeed(Math.min(1200, speed + 10))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
                   </div>
 
                   {/* Font */}
                   <div className="flex items-center bg-gray-100 rounded-lg px-1.5 py-1">
                     <span className="text-[10px] text-gray-500 font-medium mr-1">Size</span>
-                    <button onClick={() => setFontSize(Math.max(12, fontSize - 2))} className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
+                    <button onClick={() => setFontSize(Math.max(12, fontSize - 2))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
                     <span className="text-xs font-bold text-gray-900 min-w-[24px] text-center">{fontSize}</span>
-                    <button onClick={() => setFontSize(Math.min(48, fontSize + 2))} className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
+                    <button onClick={() => setFontSize(Math.min(48, fontSize + 2))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
                   </div>
                 </div>
 
@@ -500,7 +500,7 @@ export default function PracticePage() {
                   <button
                     onClick={isPlaying ? handlePause : handleStartReading}
                     disabled={!textInput.trim()}
-                    className="flex-1 h-11 bg-blue-600 text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                    className="flex-1 h-10 bg-blue-600 text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
                   >
                     {isPlaying ? (
                       <><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>Pause</>
@@ -508,7 +508,7 @@ export default function PracticePage() {
                       <><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" /></svg>Start</>
                     )}
                   </button>
-                  <button onClick={handleReset} className="w-11 h-11 flex items-center justify-center rounded-xl bg-gray-100 text-gray-600 hover:bg-gray-200" title="Reset" aria-label="Reset">
+                  <button onClick={handleReset} className="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 text-gray-600 hover:bg-gray-200" title="Reset" aria-label="Reset">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
                   </button>
                 </div>
