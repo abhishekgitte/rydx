@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Settings, Clock, Gauge, Brain, AlertCircle, BookMarked, Wrench, ScrollText, Calendar, ClipboardList, Sparkles, FileText, TrendingUp } from "lucide-react";
+import { Settings, Clock, Gauge, Brain, AlertCircle, BookMarked, Wrench, ScrollText, Calendar, ClipboardList, Sparkles, FileText, TrendingUp, Languages } from "lucide-react";
 
 export default function Home() {
   const containerVariants = {
@@ -99,18 +99,21 @@ export default function Home() {
         </section>
 
         {/* Know Your Enemy */}
-        <section className="py-24 bg-white dark:bg-slate-950">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-24 relative overflow-hidden bg-slate-50/30 dark:bg-slate-950/20">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-100/30 dark:bg-blue-900/10 rounded-full blur-[100px] pointer-events-none" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
-                Know Your Enemy!
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-6 tracking-tight">
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                  Know Your Enemy!
+                </span>
               </h2>
-              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed font-medium">
                 What stops you from reading fast without compromising on comprehension?
               </p>
             </motion.div>
@@ -130,6 +133,7 @@ export default function Home() {
                   color: "text-amber-600 dark:text-amber-400",
                   bg: "bg-amber-50 dark:bg-amber-900/20",
                   border: "border-amber-100 dark:border-amber-800/50",
+                  hover: "hover:shadow-amber-500/10 hover:border-amber-200 dark:hover:border-amber-700/50",
                 },
                 {
                   title: "Not having a habit of reading",
@@ -138,6 +142,7 @@ export default function Home() {
                   color: "text-rose-600 dark:text-rose-400",
                   bg: "bg-rose-50 dark:bg-rose-900/20",
                   border: "border-rose-100 dark:border-rose-800/50",
+                  hover: "hover:shadow-rose-500/10 hover:border-rose-200 dark:hover:border-rose-700/50",
                 },
                 {
                   title: "Mental blocks",
@@ -146,6 +151,7 @@ export default function Home() {
                   color: "text-violet-600 dark:text-violet-400",
                   bg: "bg-violet-50 dark:bg-violet-900/20",
                   border: "border-violet-100 dark:border-violet-800/50",
+                  hover: "hover:shadow-violet-500/10 hover:border-violet-200 dark:hover:border-violet-700/50",
                 },
               ].map((item, idx) => {
                 const Icon = item.icon;
@@ -153,15 +159,15 @@ export default function Home() {
                   <motion.div
                     key={idx}
                     variants={itemVariants}
-                    className={`flex flex-col p-8 rounded-3xl border ${item.border} hover:shadow-xl transition-all duration-300 group bg-slate-50/50 dark:bg-slate-900/20`}
+                    className={`flex flex-col p-8 rounded-3xl border ${item.border} ${item.hover} hover:shadow-2xl transition-all duration-500 group bg-white/80 dark:bg-slate-900/40 backdrop-blur-sm`}
                   >
-                    <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-105 transition-transform`}>
+                    <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm`}>
                       <Icon className={`w-7 h-7 ${item.color}`} />
                     </div>
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight group-hover:text-slate-950 dark:group-hover:text-white transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm md:text-base">
+                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm md:text-base font-medium">
                       {item.description}
                     </p>
                   </motion.div>
@@ -172,8 +178,8 @@ export default function Home() {
         </section>
 
         {/* How will RydX help you? */}
-        <section className="section-pattern py-28 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/30 dark:via-blue-950/20 to-transparent pointer-events-none" />
+        <section className="py-28 relative overflow-hidden bg-white dark:bg-slate-950">
+          <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-indigo-50/50 dark:bg-indigo-900/5 rounded-full blur-[120px] pointer-events-none" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -181,12 +187,14 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
-                How will RydX help you?
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-6 tracking-tight">
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                  Everything You Need to Master Reading
+                </span>
               </h2>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
@@ -194,56 +202,34 @@ export default function Home() {
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {[
-                {
-                  title: "Tools to train your brain and mind",
-                  icon: Wrench,
-                  color: "bg-blue-600",
-                  accent: "border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-950/30",
-                  soon: false,
-                },
-                {
-                  title: "Tested methods to improve reading speed",
-                  icon: ScrollText,
-                  color: "bg-indigo-600",
-                  accent: "border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-950/30",
-                  soon: false,
-                },
-                {
-                  title: "Plan to build a habit of reading",
-                  icon: Calendar,
-                  color: "bg-violet-600",
-                  accent: "border-violet-200 dark:border-violet-800 bg-violet-50/50 dark:bg-violet-950/30",
-                  soon: true,
-                },
-                {
-                  title: "Free quizzes to test your improvements",
-                  icon: ClipboardList,
-                  color: "bg-emerald-600",
-                  accent: "border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/30",
-                  soon: true,
-                },
-                {
-                  title: "AI to turn any article into a quiz",
-                  icon: Sparkles,
-                  color: "bg-amber-600",
-                  accent: "border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/30",
-                  soon: true,
-                },
+                { title: "Cognitive tools designed for focused reading", icon: Wrench, color: "bg-blue-600", accent: "border-blue-100 dark:border-blue-900/50 hover:border-blue-300 dark:hover:border-blue-700 bg-white dark:bg-slate-900/40", soon: false },
+                { title: "Research-backed methods to boost reading speed", icon: ScrollText, color: "bg-indigo-600", accent: "border-indigo-100 dark:border-indigo-900/50 hover:border-indigo-300 dark:hover:border-indigo-700 bg-white dark:bg-slate-900/40", soon: false },
+                { title: "Habit-building systems for long-term growth", icon: Calendar, color: "bg-violet-600", accent: "border-violet-100 dark:border-violet-900/50 hover:border-violet-300 dark:hover:border-violet-700 bg-white dark:bg-slate-900/40", soon: true },
+                { title: "Exam oriented mock tests to measure real progress", icon: ClipboardList, color: "bg-emerald-600", accent: "border-emerald-100 dark:border-emerald-900/50 hover:border-emerald-300 dark:hover:border-emerald-700 bg-white dark:bg-slate-900/40", soon: true },
+                { title: "AI-powered practice from any article", icon: Sparkles, color: "bg-amber-600", accent: "border-amber-100 dark:border-amber-900/50 hover:border-amber-300 dark:hover:border-amber-700 bg-white dark:bg-slate-900/40", soon: true },
+                { title: "AI Powered Vocabulary Building Tools", icon: Languages, color: "bg-cyan-600", accent: "border-cyan-100 dark:border-cyan-900/50 hover:border-cyan-300 dark:hover:border-cyan-700 bg-white dark:bg-slate-900/40", soon: true },
               ].map((item, idx) => {
                 const Icon = item.icon;
                 return (
                   <motion.div
                     key={idx}
                     variants={itemVariants}
-                    className={`flex items-center gap-5 p-6 rounded-2xl border ${item.accent} bg-white dark:bg-slate-900/60 shadow-sm hover:shadow-lg transition-all duration-300`}
+                    className={`group flex items-center gap-5 p-6 rounded-2xl border ${item.accent} shadow-sm hover:shadow-xl transition-all duration-300 backdrop-blur-sm`}
                   >
-                    <div className={`flex-shrink-0 w-12 h-12 ${item.color} rounded-xl flex items-center justify-center`}>
+                    <div className={`flex-shrink-0 w-12 h-12 ${item.color} rounded-xl flex items-center justify-center shadow-lg shadow-black/5 group-hover:scale-110 transition-transform duration-300`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h3 className="text-base font-bold text-slate-900 dark:text-white">{item.title}</h3>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        {item.title}
+                      </h3>
                       {item.soon && (
-                        <span className="inline-block mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">Coming soon!</span>
+                        <div className="flex items-center gap-1.5 mt-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 animate-pulse" />
+                          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 tracking-wide uppercase">
+                            Coming soon
+                          </span>
+                        </div>
                       )}
                     </div>
                   </motion.div>
@@ -254,16 +240,19 @@ export default function Home() {
         </section>
 
         {/* Make best use of RydX! */}
-        <section className="py-24 bg-white dark:bg-slate-950">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-24 relative overflow-hidden bg-slate-50/50 dark:bg-slate-950/20">
+          <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-14"
+              className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
-                Make best use of RydX!
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-6 tracking-tight">
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                  Make best use of RydX!
+                </span>
               </h2>
             </motion.div>
 
@@ -286,19 +275,23 @@ export default function Home() {
                   <motion.li
                     key={item.step}
                     variants={itemVariants}
-                    className="flex gap-5 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-800/50 transition-colors"
+                    className="flex gap-6 p-8 rounded-3xl bg-white/60 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/60 shadow-sm hover:shadow-xl hover:bg-white dark:hover:bg-slate-900 hover:border-blue-200 dark:hover:border-blue-800/50 transition-all duration-500 group"
                   >
-                    <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-lg">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
                       {item.step}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <Icon className="w-5 h-5 text-slate-500 dark:text-slate-400 flex-shrink-0" />
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                          {item.href ? <Link href={item.href} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{item.title}</Link> : item.title}
+                      <div className="flex items-center gap-3 mb-2 flex-wrap">
+                        <div className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors">
+                          <Icon className="w-5 h-5 text-slate-500 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                        </div>
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          {item.href ? <Link href={item.href}>{item.title}</Link> : item.title}
                         </h3>
                       </div>
-                      <p className="mt-2 text-slate-600 dark:text-slate-400 leading-relaxed">{item.body}</p>
+                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-base md:text-lg font-medium">
+                        {item.body}
+                      </p>
                     </div>
                   </motion.li>
                 );
@@ -308,32 +301,31 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="section-slate py-28">
+        <section className="py-28 bg-white dark:bg-slate-950">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 rounded-3xl p-10 md:p-14 text-center relative overflow-hidden shadow-xl border border-blue-500/20"
+              className="bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 rounded-[2.5rem] p-10 md:p-16 text-center relative overflow-hidden shadow-2xl shadow-blue-900/40 border border-white/10"
             >
-              <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-64 h-64 bg-indigo-400/20 rounded-full blur-3xl" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl" />
+              <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-white/10 rounded-full blur-[100px]" />
+              <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-80 h-80 bg-blue-400/20 rounded-full blur-[100px]" />
               
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">
+                <h2 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight leading-tight">
                   Ready to read faster?
                 </h2>
-                <p className="text-lg text-blue-100 mb-2 max-w-xl mx-auto">
+                <p className="text-lg md:text-xl text-blue-50 mb-2 max-w-xl mx-auto font-medium">
                   Take the speed test, then practice daily.
                 </p>
-                <p className="text-lg text-blue-100 mb-8 font-semibold">
+                <p className="text-xl md:text-2xl text-white mb-10 font-black tracking-wide">
                   Start now.
                 </p>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
                     href="/test"
-                    className="inline-block bg-white text-blue-700 px-8 py-3 rounded-xl font-bold hover:bg-blue-50 transition-all"
+                    className="inline-block bg-white text-blue-700 px-10 py-4 rounded-2xl font-black text-lg hover:bg-blue-50 hover:shadow-2xl hover:shadow-white/20 transition-all duration-300 active:scale-95"
                   >
                     Take me to the Speed Test now!
                   </Link>
