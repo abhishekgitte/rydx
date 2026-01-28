@@ -90,48 +90,34 @@ export default function Home() {
                 initial={{ scale: 0.98, opacity: 0, y: -8 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50/80 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-bold mt-8 md:mt-12 mb-8 border border-blue-200/60 dark:border-blue-800 shadow-sm backdrop-blur-sm"
+                className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-50/80 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-sm font-bold mt-8 md:mt-12 mb-8 border border-indigo-200/60 dark:border-indigo-800 shadow-sm backdrop-blur-sm"
               >
-                <span className="w-2 h-2 rounded-full bg-blue-500 mr-2 animate-pulse" />
-                Built for Future Thought Leaders
+                <span className="w-2 h-2 rounded-full bg-indigo-500 mr-2 animate-pulse" />
+                Built to Make You A Smart Reader!
               </motion.div>
               
-              <h1 className="font-extrabold text-slate-900 dark:text-white mb-8 tracking-tight">
-                <span className="block text-xl md:text-3xl font-bold text-slate-700 dark:text-slate-300">
-                  Train your{" "}
-                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                    Brain
-                  </span>{" "}
-                  and{" "}
-                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                    Mind
-                  </span>
-                </span>
-                <span className="block mt-4 text-4xl md:text-7xl leading-[1.15]">
-                  Read{" "}
-                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                    3.5X
-                  </span>{" "}
-                  Faster with{" "}
-                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                    RydX
-                  </span>
+              <h1 className="font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
+                <span className="block text-3xl md:text-5xl lg:text-6xl leading-[1.15] mb-4">
+                  Train your Brain and Mind
                 </span>
               </h1>
               
-              <p className="text-lg md:text-2xl text-slate-600 dark:text-slate-400 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4 md:px-0">
-                Unlock your <span className="text-slate-900 dark:text-white font-semibold">true potential</span> by breaking mental blocks.{" "}
-                <span className="text-slate-900 dark:text-white font-semibold">RydX</span> helps students build{" "}
-                <span className="text-slate-900 dark:text-white font-semibold">focus</span>, read{" "}
-                <span className="text-slate-900 dark:text-white font-semibold">faster</span>, and keep{" "}
-                <span className="text-slate-900 dark:text-white font-semibold">strong</span> comprehension—ideal for{" "}
-                <span className="text-slate-900 dark:text-white font-semibold">CAT, GMAT, IELTS</span>, and any exam with reading comprehension.
+              <p className="text-xl md:text-2xl lg:text-3xl text-slate-700 dark:text-slate-300 mb-4 font-semibold max-w-4xl mx-auto leading-relaxed px-4 md:px-0">
+                Read Faster. Understand Better.
+              </p>
+              
+              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-4 max-w-3xl mx-auto leading-relaxed px-4 md:px-0">
+                Improve Control and Focus while Reading.
+              </p>
+              
+              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4 md:px-0">
+                RydX is a reading training platform designed to help you break inefficient reading habits, improve focus, and build strong comprehension — whether you're preparing for exams, studying complex material, or reading professionally.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center px-4 md:px-0">
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link href="/test" className="btn-primary flex items-center justify-center gap-2 px-8 py-4 text-base md:text-lg shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-shadow">
-                    Take a Quick Test
+                    Take the Free Reading Diagnostic
                   </Link>
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -161,6 +147,123 @@ export default function Home() {
           </div>
         </section>
 
+        {/* What RydX Provides */}
+        <section className="py-10 md:py-16 relative overflow-hidden bg-white dark:bg-slate-950">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-8 md:mb-12"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center px-3 py-1.5 rounded-full bg-blue-50/80 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-bold mb-4 border border-blue-100/60 dark:border-blue-800/40"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2" />
+                WHAT RydX PROVIDES
+              </motion.div>
+              
+              <h2 className="text-2xl md:text-4xl font-extrabold mb-6 tracking-tight">
+                <span className="text-slate-900 dark:text-white">
+                  What You Train with RydX
+                </span>
+              </h2>
+              
+              <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 font-semibold mb-6 max-w-2xl mx-auto">
+                RydX doesn't promise shortcuts.
+              </p>
+              
+              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+                It trains how your brain processes written information.
+              </p>
+            </motion.div>
+
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="space-y-4 mb-8"
+            >
+              {[
+                "Read faster without sacrificing comprehension",
+                "Reduce unnecessary re-reading",
+                "Maintain focus on long, dense texts",
+                "Build reading stamina and clarity",
+              ].map((benefit, idx) => (
+                <motion.div
+                  key={idx}
+                  variants={itemVariants}
+                  className="flex items-start gap-4 p-5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800"
+                >
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm mt-0.5">
+                    ✓
+                  </div>
+                  <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 font-medium">
+                    {benefit}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center p-6 rounded-xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-200/60 dark:border-blue-800/40"
+            >
+              <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 font-semibold italic">
+                Speed improves as a result of better reading behaviour — not forced acceleration.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* The Real Problem */}
+        <section className="py-10 md:py-16 relative overflow-hidden bg-gradient-to-b from-white to-slate-50/80 dark:from-slate-950 dark:to-slate-950/40">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center px-3 py-1.5 rounded-full bg-rose-50/80 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 text-xs font-bold mb-4 border border-rose-100/60 dark:border-rose-800/40"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mr-2" />
+                THE REAL PROBLEM
+              </motion.div>
+              
+              <h2 className="text-2xl md:text-4xl font-extrabold mb-6 tracking-tight">
+                <span className="text-slate-900 dark:text-white">
+                  <span className="font-normal">Most People Don't Read Slowly.</span>
+                  <br />
+                  <span className="font-bold">They Read Inefficiently.</span>
+                </span>
+              </h2>
+              
+              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-4 max-w-2xl mx-auto leading-relaxed">
+                Slow reading is rarely about intelligence or language ability.
+              </p>
+              
+              <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 font-semibold max-w-2xl mx-auto leading-relaxed">
+                It's caused by habits most of us were never taught to fix.
+              </p>
+              
+              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto leading-relaxed">
+                RydX identifies these habits and helps you retrain them systematically.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Know Your Enemy */}
         <section className="py-10 md:py-16 relative overflow-hidden bg-gradient-to-b from-slate-50/80 to-white dark:from-slate-950/40 dark:to-slate-950">
           {/* Decorative elements */}
@@ -185,16 +288,16 @@ export default function Home() {
                 className="inline-flex items-center px-3 py-1.5 rounded-full bg-rose-50/80 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 text-xs font-bold mb-4 border border-rose-100/60 dark:border-rose-800/40"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mr-2" />
-                Know Your Enemy
+                KNOW YOUR ENEMY
               </motion.div>
               
               <h2 className="text-2xl md:text-5xl font-extrabold mb-6 tracking-tight">
                 <span className="bg-gradient-to-r from-rose-600 via-orange-600 to-amber-600 bg-clip-text text-transparent">
-                  What Slows Down Your Reading Speed?
+                  What Slows Down Your Reading
                 </span>
               </h2>
               <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium mb-8">
-                Your reading speed isn't slow by nature — it's slowed by habits and gaps you can fix.
+                Your reading speed isn't fixed by nature — it's shaped by habits that can be changed.
               </p>
             </motion.div>
 
@@ -206,13 +309,13 @@ export default function Home() {
               className="max-w-5xl mx-auto"
             >
               <div className="mb-8">
-                {/* Mobile: 2-2-2-1 layout */}
+                {/* Mobile: 2-2-2-2 layout */}
                 {/* Row 1: 2 boxes */}
                 <div className="grid grid-cols-2 md:hidden gap-3 mb-3">
                   {[
                     {
                       title: "Subvocalization",
-                      description: "reading every word in your head",
+                      description: "Reading every word internally instead of processing meaning",
                       icon: Brain,
                       color: "text-rose-600 dark:text-rose-400",
                       bg: "bg-gradient-to-br from-rose-50 to-rose-100/50 dark:from-rose-900/30 dark:to-rose-900/10",
@@ -220,7 +323,7 @@ export default function Home() {
                     },
                     {
                       title: "Regression",
-                      description: "re-reading lines unnecessarily",
+                      description: "Re-reading lines because structure wasn't captured the first time",
                       icon: RotateCcw,
                       color: "text-orange-600 dark:text-orange-400",
                       bg: "bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-900/30 dark:to-orange-900/10",
@@ -255,7 +358,7 @@ export default function Home() {
                   {[
                     {
                       title: "Narrow Eye Span",
-                      description: "focusing on one word at a time",
+                      description: "Seeing one word at a time instead of meaningful chunks",
                       icon: Eye,
                       color: "text-amber-600 dark:text-amber-400",
                       bg: "bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/30 dark:to-amber-900/10",
@@ -263,7 +366,7 @@ export default function Home() {
                     },
                     {
                       title: "Lack of Focus",
-                      description: "mind wandering while reading",
+                      description: "Mind wandering during long reading sessions",
                       icon: ZapOff,
                       color: "text-red-600 dark:text-red-400",
                       bg: "bg-gradient-to-br from-red-50 to-red-100/50 dark:from-red-900/30 dark:to-red-900/10",
@@ -297,16 +400,16 @@ export default function Home() {
                 <div className="grid grid-cols-2 md:hidden gap-3 mb-3">
                   {[
                     {
-                      title: "Poor Reading Strategy",
-                      description: "reading everything at the same pace",
+                      title: "Flat Reading Strategy",
+                      description: "Reading everything at the same pace",
                       icon: BookOpen,
                       color: "text-rose-600 dark:text-rose-400",
                       bg: "bg-gradient-to-br from-rose-50 to-rose-100/50 dark:from-rose-900/30 dark:to-rose-900/10",
                       borderColor: "border-rose-200/80 dark:border-rose-800/40",
                     },
                     {
-                      title: "Poor Vocabulary",
-                      description: "stopping often to understand words",
+                      title: "Vocabulary Interruptions",
+                      description: "Breaking flow to decode unfamiliar words",
                       icon: AlertCircle,
                       color: "text-orange-600 dark:text-orange-400",
                       bg: "bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-900/30 dark:to-orange-900/10",
@@ -348,21 +451,21 @@ export default function Home() {
                       <BookMarked className="w-5 h-5 text-amber-600 dark:text-amber-400" />
                     </div>
                     <h3 className="text-[13px] font-bold text-slate-900 dark:text-white text-center mb-1 tracking-tight leading-tight">
-                      Lack of a Reading Habit
+                      Low Reading Endurance
                     </h3>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400 text-center leading-relaxed">
-                      low familiarity with longer texts
+                      Mental fatigue during extended reading
                     </p>
                   </motion.div>
                 </div>
 
-                {/* Desktop: 3-3-1 layout */}
-                {/* Row 1: 3 boxes */}
-                <div className="hidden md:grid md:grid-cols-3 gap-5 mb-5">
+                {/* Desktop: 4-4 layout */}
+                {/* Row 1: 4 boxes */}
+                <div className="hidden md:grid md:grid-cols-4 gap-4 mb-4">
                   {[
                     {
                       title: "Subvocalization",
-                      description: "reading every word in your head",
+                      description: "Reading every word internally instead of processing meaning",
                       icon: Brain,
                       color: "text-rose-600 dark:text-rose-400",
                       bg: "bg-gradient-to-br from-rose-50 to-rose-100/50 dark:from-rose-900/30 dark:to-rose-900/10",
@@ -370,7 +473,7 @@ export default function Home() {
                     },
                     {
                       title: "Regression",
-                      description: "re-reading lines unnecessarily",
+                      description: "Re-reading lines because structure wasn't captured the first time",
                       icon: RotateCcw,
                       color: "text-orange-600 dark:text-orange-400",
                       bg: "bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-900/30 dark:to-orange-900/10",
@@ -378,11 +481,19 @@ export default function Home() {
                     },
                     {
                       title: "Narrow Eye Span",
-                      description: "focusing on one word at a time",
+                      description: "Seeing one word at a time instead of meaningful chunks",
                       icon: Eye,
                       color: "text-amber-600 dark:text-amber-400",
                       bg: "bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/30 dark:to-amber-900/10",
                       borderColor: "border-amber-200/80 dark:border-amber-800/40",
+                    },
+                    {
+                      title: "Lack of Focus",
+                      description: "Mind wandering during long reading sessions",
+                      icon: ZapOff,
+                      color: "text-red-600 dark:text-red-400",
+                      bg: "bg-gradient-to-br from-red-50 to-red-100/50 dark:from-red-900/30 dark:to-red-900/10",
+                      borderColor: "border-red-200/80 dark:border-red-800/40",
                     },
                   ].map((item, idx) => {
                     const Icon = item.icon;
@@ -408,32 +519,32 @@ export default function Home() {
                   })}
                 </div>
 
-                {/* Row 2: 3 boxes */}
-                <div className="hidden md:grid md:grid-cols-3 gap-5 mb-5">
+                {/* Row 2: 4 boxes */}
+                <div className="hidden md:grid md:grid-cols-4 gap-4 mb-4">
                   {[
                     {
-                      title: "Lack of Focus",
-                      description: "mind wandering while reading",
-                      icon: ZapOff,
-                      color: "text-red-600 dark:text-red-400",
-                      bg: "bg-gradient-to-br from-red-50 to-red-100/50 dark:from-red-900/30 dark:to-red-900/10",
-                      borderColor: "border-red-200/80 dark:border-red-800/40",
-                    },
-                    {
-                      title: "Poor Reading Strategy",
-                      description: "reading everything at the same pace",
+                      title: "Flat Reading Strategy",
+                      description: "Reading everything at the same pace",
                       icon: BookOpen,
                       color: "text-rose-600 dark:text-rose-400",
                       bg: "bg-gradient-to-br from-rose-50 to-rose-100/50 dark:from-rose-900/30 dark:to-rose-900/10",
                       borderColor: "border-rose-200/80 dark:border-rose-800/40",
                     },
                     {
-                      title: "Poor Vocabulary",
-                      description: "stopping often to understand words",
+                      title: "Vocabulary Interruptions",
+                      description: "Breaking flow to decode unfamiliar words",
                       icon: AlertCircle,
                       color: "text-orange-600 dark:text-orange-400",
                       bg: "bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-900/30 dark:to-orange-900/10",
                       borderColor: "border-orange-200/80 dark:border-orange-800/40",
+                    },
+                    {
+                      title: "Low Reading Endurance",
+                      description: "Mental fatigue during extended reading",
+                      icon: BookMarked,
+                      color: "text-amber-600 dark:text-amber-400",
+                      bg: "bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/30 dark:to-amber-900/10",
+                      borderColor: "border-amber-200/80 dark:border-amber-800/40",
                     },
                   ].map((item, idx) => {
                     const Icon = item.icon;
@@ -459,25 +570,6 @@ export default function Home() {
                   })}
                 </div>
 
-                {/* Row 3: 1 box centered (desktop) */}
-                <div className="hidden md:flex md:justify-center">
-                  <motion.div
-                    variants={itemVariants}
-                    className="relative flex flex-col items-center p-6 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-amber-200/80 dark:border-amber-800/40 shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group max-w-sm overflow-hidden"
-                  >
-                    {/* Subtle top accent line */}
-                    <div className="absolute top-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
-                    <div className="w-14 h-14 bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/30 dark:to-amber-900/10 rounded-xl flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform duration-300">
-                      <BookMarked className="w-7 h-7 text-amber-600 dark:text-amber-400" />
-                    </div>
-                    <h3 className="text-base font-bold text-slate-900 dark:text-white text-center mb-2 tracking-tight">
-                      Lack of a Reading Habit
-                    </h3>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 text-center leading-relaxed">
-                      low familiarity with longer texts
-                    </p>
-                  </motion.div>
-                </div>
               </div>
               
               <motion.div
@@ -490,7 +582,7 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 font-semibold leading-relaxed">
-                  RydX helps you identify these issues and trains you to overcome them with structured practice.
+                  RydX helps you identify which of these affect you — and trains you to overcome them.
                 </p>
               </motion.div>
             </motion.div>
@@ -528,7 +620,7 @@ export default function Home() {
               
               <h2 className="text-2xl md:text-5xl font-extrabold mb-6 tracking-tight">
                 <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  Everything You Need to Master Reading
+                  Everything You Need to Read Faster and Better
                 </span>
               </h2>
             </motion.div>
@@ -542,11 +634,11 @@ export default function Home() {
             >
               {[
                 { title: "Cognitive tools designed for focused reading", icon: Wrench, color: "bg-gradient-to-br from-blue-500 to-blue-600", shadow: "shadow-blue-500/20", borderColor: "border-blue-100 dark:border-blue-900/50 hover:border-blue-300 dark:hover:border-blue-700", soon: false },
-                { title: "Research-backed methods to boost reading speed", icon: ScrollText, color: "bg-gradient-to-br from-indigo-500 to-indigo-600", shadow: "shadow-indigo-500/20", borderColor: "border-indigo-100 dark:border-indigo-900/50 hover:border-indigo-300 dark:hover:border-indigo-700", soon: false },
-                { title: "Habit-building systems for long-term growth", icon: Calendar, color: "bg-gradient-to-br from-violet-500 to-violet-600", shadow: "shadow-violet-500/20", borderColor: "border-violet-100 dark:border-violet-900/50 hover:border-violet-300 dark:hover:border-violet-700", soon: true },
-                { title: "Exam oriented mock tests to measure real progress", icon: ClipboardList, color: "bg-gradient-to-br from-emerald-500 to-emerald-600", shadow: "shadow-emerald-500/20", borderColor: "border-emerald-100 dark:border-emerald-900/50 hover:border-emerald-300 dark:hover:border-emerald-700", soon: true },
-                { title: "AI-powered practice from any article", icon: Sparkles, color: "bg-gradient-to-br from-amber-500 to-amber-600", shadow: "shadow-amber-500/20", borderColor: "border-amber-100 dark:border-amber-900/50 hover:border-amber-300 dark:hover:border-amber-700", soon: true },
-                { title: "AI Powered Vocabulary Building Tools", icon: Languages, color: "bg-gradient-to-br from-cyan-500 to-cyan-600", shadow: "shadow-cyan-500/20", borderColor: "border-cyan-100 dark:border-cyan-900/50 hover:border-cyan-300 dark:hover:border-cyan-700", soon: true },
+                { title: "Research-backed techniques to improve reading efficiency", icon: ScrollText, color: "bg-gradient-to-br from-indigo-500 to-indigo-600", shadow: "shadow-indigo-500/20", borderColor: "border-indigo-100 dark:border-indigo-900/50 hover:border-indigo-300 dark:hover:border-indigo-700", soon: false },
+                { title: "Structured practice to build long-term reading strength", icon: Calendar, color: "bg-gradient-to-br from-violet-500 to-violet-600", shadow: "shadow-violet-500/20", borderColor: "border-violet-100 dark:border-violet-900/50 hover:border-violet-300 dark:hover:border-violet-700", soon: false },
+                { title: "Practice tailored to different reading goals", icon: ClipboardList, color: "bg-gradient-to-br from-emerald-500 to-emerald-600", shadow: "shadow-emerald-500/20", borderColor: "border-emerald-100 dark:border-emerald-900/50 hover:border-emerald-300 dark:hover:border-emerald-700", soon: true },
+                { title: "AI-powered exercises from any article", icon: Sparkles, color: "bg-gradient-to-br from-amber-500 to-amber-600", shadow: "shadow-amber-500/20", borderColor: "border-amber-100 dark:border-amber-900/50 hover:border-amber-300 dark:hover:border-amber-700", soon: true },
+                { title: "Vocabulary strengthening tools", icon: Languages, color: "bg-gradient-to-br from-cyan-500 to-cyan-600", shadow: "shadow-cyan-500/20", borderColor: "border-cyan-100 dark:border-cyan-900/50 hover:border-cyan-300 dark:hover:border-cyan-700", soon: true },
               ].map((item, idx) => {
                 const Icon = item.icon;
                 return (
@@ -567,9 +659,8 @@ export default function Home() {
                       </h3>
                       {item.soon && (
                         <div className="flex items-center gap-1.5 mt-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 dark:bg-amber-500 animate-pulse" />
                           <span className="text-[10px] md:text-xs font-bold text-slate-500 dark:text-slate-400 tracking-wide uppercase">
-                            Coming soon
+                            Coming Soon
                           </span>
                         </div>
                       )}
@@ -577,6 +668,17 @@ export default function Home() {
                   </motion.div>
                 );
               })}
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mt-8"
+            >
+              <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 font-semibold italic">
+                Built for improvement, not gimmicks.
+              </p>
             </motion.div>
           </div>
         </section>
@@ -613,7 +715,7 @@ export default function Home() {
               
               <h2 className="text-2xl md:text-5xl font-extrabold mb-6 tracking-tight">
                 <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  Make best use of RydX!
+                  How to Make the Best Use of RydX
                 </span>
               </h2>
             </motion.div>
@@ -626,11 +728,11 @@ export default function Home() {
               className="space-y-3 md:space-y-4"
             >
               {[
-                { step: 1, title: "Take the speed test", body: "Check your current reading speed. Your result is shown in WPM (words per minute)—the number of words you can read and understand in 60 seconds. It gives you a clear baseline to improve from.", icon: Gauge, href: "/test", gradient: "from-blue-500 to-blue-600" },
-                { step: 2, title: "Go to Practice", body: "Copy and paste any article you want to read. Use your own material—news, textbooks, or exam passages—so practice matches your goals.", icon: FileText, href: "/practice", gradient: "from-blue-600 to-indigo-600" },
-                { step: 3, title: "Adjust settings", body: "Tweak reading modes, WPM, font size, and other options. Find a combination that feels challenging but still clear.", icon: Settings, href: "/practice", gradient: "from-indigo-500 to-indigo-600" },
-                { step: 4, title: "Practice at +25 WPM above your target", body: "Always set the practice speed about 25 WPM higher than the speed you are aiming for. This pushes your brain to adapt and makes your target speed feel easier over time.", icon: TrendingUp, gradient: "from-indigo-600 to-violet-600" },
-                { step: 5, title: "Read at least 30 minutes a day", body: "Consistency beats intensity. A daily 30-minute session builds habit and compounds your gains in both speed and comprehension.", icon: Clock, gradient: "from-violet-500 to-purple-600" },
+                { step: 1, title: "Take the Reading Diagnostic", body: "Measure your current reading speed and comprehension. This gives you a clear, honest baseline.", icon: Gauge, href: "/test", gradient: "from-blue-500 to-blue-600" },
+                { step: 2, title: "Move to Practice", body: "Paste any article, study material, or passage you want to read. Train using content that matters to you.", icon: FileText, href: "/practice", gradient: "from-blue-600 to-indigo-600" },
+                { step: 3, title: "Adjust Your Settings", body: "Choose reading mode, pace, font, and layout that feel challenging but still clear.", icon: Settings, href: "/practice", gradient: "from-indigo-500 to-indigo-600" },
+                { step: 4, title: "Train Slightly Above Comfort", body: "Practice at a pace just above your current level to encourage adaptation without overload.", icon: TrendingUp, gradient: "from-indigo-600 to-violet-600" },
+                { step: 5, title: "Practice Consistently", body: "15–30 minutes a day builds focus, stamina, and lasting improvement. Consistency beats intensity.", icon: Clock, gradient: "from-violet-500 to-purple-600" },
               ].map((item) => {
                 const Icon = item.icon;
                 return (
@@ -659,6 +761,86 @@ export default function Home() {
                 );
               })}
             </motion.ol>
+          </div>
+        </section>
+
+        {/* Who RydX Is For */}
+        <section className="py-10 md:py-16 relative overflow-hidden bg-gradient-to-b from-slate-50/80 to-white dark:from-slate-950/40 dark:to-slate-950">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-8 md:mb-12"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center px-3 py-1.5 rounded-full bg-indigo-50/80 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold mb-4 border border-indigo-100/60 dark:border-indigo-800/40"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 mr-2" />
+                WHO RydX IS FOR
+              </motion.div>
+              
+              <h2 className="text-2xl md:text-4xl font-extrabold mb-8 tracking-tight">
+                <span className="text-slate-900 dark:text-white">
+                  Who RydX Is For
+                </span>
+              </h2>
+            </motion.div>
+
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8"
+            >
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">✓ For</h3>
+                {[
+                  "Students and lifelong learners",
+                  "Exam aspirants and researchers",
+                  "Professionals who read large volumes of text",
+                  "Anyone who wants better focus and comprehension",
+                ].map((item, idx) => (
+                  <motion.div
+                    key={idx}
+                    variants={itemVariants}
+                    className="flex items-start gap-3 p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-200/60 dark:border-emerald-800/40"
+                  >
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs mt-0.5">
+                      ✓
+                    </div>
+                    <p className="text-base text-slate-700 dark:text-slate-300 font-medium">
+                      {item}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+              
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">✘ Not For</h3>
+                {[
+                  "Miracle promises",
+                  "One-day hacks",
+                ].map((item, idx) => (
+                  <motion.div
+                    key={idx}
+                    variants={itemVariants}
+                    className="flex items-start gap-3 p-4 rounded-xl bg-rose-50/50 dark:bg-rose-900/10 border border-rose-200/60 dark:border-rose-800/40"
+                  >
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-rose-500 text-white flex items-center justify-center font-bold text-xs mt-0.5">
+                      ✘
+                    </div>
+                    <p className="text-base text-slate-700 dark:text-slate-300 font-medium">
+                      {item}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -698,20 +880,23 @@ export default function Home() {
                 </motion.div>
                 
                 <h2 className="text-2xl md:text-5xl font-black text-white mb-4 md:mb-6 tracking-tight leading-tight">
-                  Ready to read faster?
+                  Reading Is a Skill. Train It.
                 </h2>
                 <p className="text-base md:text-xl text-blue-100 mb-2 max-w-xl mx-auto font-medium">
-                  Take the speed test, then practice daily.
+                  Start with the diagnostic.
+                </p>
+                <p className="text-base md:text-xl text-blue-100 mb-2 max-w-xl mx-auto font-medium">
+                  Understand how you read.
                 </p>
                 <p className="text-lg md:text-2xl text-white mb-6 md:mb-10 font-black tracking-wide">
-                  Start now.
+                  Then improve it — deliberately.
                 </p>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
                     href="/test"
                     className="inline-flex items-center gap-2 bg-white text-blue-700 px-8 md:px-10 py-3.5 md:py-4 rounded-xl md:rounded-2xl font-black text-base md:text-lg hover:bg-blue-50 shadow-lg shadow-black/20 hover:shadow-2xl hover:shadow-white/20 transition-all duration-300 active:scale-95"
                   >
-                    Take me to the Speed Test now!
+                    Start with the Free Reading Diagnostic
                     <ChevronDown className="w-5 h-5 -rotate-90" />
                   </Link>
                 </motion.div>

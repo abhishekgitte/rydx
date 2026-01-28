@@ -39,7 +39,9 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-slate-600 dark:text-slate-400 text-base max-w-sm leading-relaxed">
-              Elevate your reading speed and comprehension. Specialized techniques designed for competitive exam success.
+              Train reading speed, focus, and comprehension.
+              <br />
+              Built for serious readers.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="p-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-500 hover:text-blue-600 hover:border-blue-600 transition-all shadow-sm">
@@ -80,7 +82,7 @@ export default function Footer() {
             © {currentYear} RydX. All rights reserved.
           </p>
           <div className="flex items-center space-x-6 text-sm text-slate-500 dark:text-slate-400">
-            <span>Made with precision for fast readers.</span>
+            <span>Made with intent, not hype.</span>
           </div>
         </div>
       </div>
