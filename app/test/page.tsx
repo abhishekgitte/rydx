@@ -178,7 +178,7 @@ export default function TestPage() {
         <div className="bg-white rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-200/50 overflow-hidden">
           <div className="px-6 sm:px-10 pt-10 pb-8 border-b border-slate-100">
             <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
-              Reading Speed Test
+              Reading Test
             </h1>
           </div>
 
@@ -191,7 +191,7 @@ export default function TestPage() {
                   </svg>
                 </div>
                 <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">
-                  Ready to Test Your Speed?
+                  Ready to Take the Reading Test?
                 </h2>
                 
                 <div className="max-w-2xl mx-auto mb-10">

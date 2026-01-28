@@ -90,24 +90,24 @@ export default function Home() {
                 initial={{ scale: 0.98, opacity: 0, y: -8 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-50/80 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-sm font-bold mt-8 md:mt-12 mb-8 border border-indigo-200/60 dark:border-indigo-800 shadow-sm backdrop-blur-sm"
+                className="inline-flex items-center px-4 py-2 rounded-full bg-violet-50/80 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-sm font-bold mt-8 md:mt-12 mb-8 border border-violet-200/60 dark:border-violet-800 shadow-sm backdrop-blur-sm"
               >
-                <span className="w-2 h-2 rounded-full bg-indigo-500 mr-2 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-violet-500 mr-2 animate-pulse" />
                 Built to Make You A Smart Reader!
               </motion.div>
               
-              <h1 className="font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
-                <span className="block text-3xl md:text-5xl lg:text-6xl leading-[1.15] mb-4">
-                  Train your Brain and Mind
+              <h1 className="font-extrabold mb-6 tracking-tight">
+                <span className="block text-3xl md:text-5xl lg:text-6xl leading-[1.1] mb-4 bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-slate-200 dark:to-white bg-clip-text text-transparent">
+                  Train Your Brain and Mind
                 </span>
               </h1>
               
-              <p className="text-xl md:text-2xl lg:text-3xl text-slate-700 dark:text-slate-300 mb-4 font-semibold max-w-4xl mx-auto leading-relaxed px-4 md:px-0">
+              <p className="text-xl md:text-2xl lg:text-3xl mb-4 font-semibold max-w-4xl mx-auto leading-relaxed px-4 md:px-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 dark:from-blue-400 dark:via-indigo-300 dark:to-violet-300 bg-clip-text text-transparent">
                 Read Faster. Understand Better.
               </p>
               
-              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-4 max-w-3xl mx-auto leading-relaxed px-4 md:px-0">
-                Improve Control and Focus while Reading.
+              <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 mb-4 max-w-3xl mx-auto leading-relaxed px-4 md:px-0 font-medium">
+                Improve Control and Focus While Reading.
               </p>
               
               <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4 md:px-0">
@@ -167,8 +167,8 @@ export default function Home() {
               </motion.div>
               
               <h2 className="text-2xl md:text-4xl font-extrabold mb-6 tracking-tight">
-                <span className="text-slate-900 dark:text-white">
-                  What You Train with RydX
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 dark:from-blue-400 dark:via-indigo-300 dark:to-violet-300 bg-clip-text text-transparent">
+                  What You Build with RydX
                 </span>
               </h2>
               
@@ -245,7 +245,7 @@ export default function Home() {
                 <span className="text-slate-900 dark:text-white">
                   <span className="font-normal">Most People Don't Read Slowly.</span>
                   <br />
-                  <span className="font-bold">They Read Inefficiently.</span>
+                  <span className="font-bold bg-gradient-to-r from-rose-600 via-orange-600 to-amber-600 dark:from-rose-400 dark:via-orange-300 dark:to-amber-300 bg-clip-text text-transparent">They Read Inefficiently.</span>
                 </span>
               </h2>
               
@@ -293,7 +293,7 @@ export default function Home() {
               
               <h2 className="text-2xl md:text-5xl font-extrabold mb-6 tracking-tight">
                 <span className="bg-gradient-to-r from-rose-600 via-orange-600 to-amber-600 bg-clip-text text-transparent">
-                  What Slows Down Your Reading
+                  What Slows Your Reading
                 </span>
               </h2>
               <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium mb-8">
@@ -620,7 +620,7 @@ export default function Home() {
               
               <h2 className="text-2xl md:text-5xl font-extrabold mb-6 tracking-tight">
                 <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  Everything You Need to Read Faster and Better
+                  Everything You Need to Read Faster & Better
                 </span>
               </h2>
             </motion.div>
@@ -715,7 +715,7 @@ export default function Home() {
               
               <h2 className="text-2xl md:text-5xl font-extrabold mb-6 tracking-tight">
                 <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  How to Make the Best Use of RydX
+                  How to Get the Most from RydX
                 </span>
               </h2>
             </motion.div>
@@ -784,7 +784,7 @@ export default function Home() {
               </motion.div>
               
               <h2 className="text-2xl md:text-4xl font-extrabold mb-8 tracking-tight">
-                <span className="text-slate-900 dark:text-white">
+                <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 dark:from-indigo-300 dark:via-purple-300 dark:to-violet-300 bg-clip-text text-transparent">
                   Who RydX Is For
                 </span>
               </h2>

@@ -9,7 +9,7 @@ export default function Footer() {
       title: "Quick Links",
       links: [
         { name: "Home", href: "/" },
-        { name: "Speed Test", href: "/test" },
+        { name: "Reading Test", href: "/test" },
         { name: "Practice", href: "/practice" },
         { name: "About", href: "/about" },
       ],

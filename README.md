@@ -4,7 +4,7 @@ A modern SaaS platform designed to help students improve their reading speed whi
 
 ## Features
 
-- **Reading Speed Test**: Measure your current reading speed and comprehension with timed tests
+- **Reading Test**: Measure your current reading speed and comprehension with timed tests
 - **Two Reading Modes**:
   - **Run Mode**: Whole article visible with word-by-word highlighting
   - **Flash Mode**: Bionic reading - one word at a time with bolded first syllables
@@ -53,7 +53,7 @@ npm start
 ├── app/
 │   ├── about/          # About page
 │   ├── practice/       # Reading practice page with both modes
-│   ├── test/           # Reading speed test page
+│   ├── test/           # Reading test page
 │   ├── globals.css     # Global styles
 │   ├── layout.tsx      # Root layout
 │   └── page.tsx        # Homepage
@@ -65,7 +65,7 @@ npm start
 
 ## Usage
 
-1. **Test Your Speed**: Visit `/test` to take a reading speed test with comprehension questions
+1. **Take the Reading Test**: Visit `/test` to take a reading test with comprehension questions
 2. **Practice Reading**: Visit `/practice` to use either Run mode or Flash mode
 3. **Adjust Settings**: Use the sidebar controls to customize speed and font size
 4. **Track Progress**: Monitor your reading progress with the progress bar

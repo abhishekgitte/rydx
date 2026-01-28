@@ -19,7 +19,7 @@ export default function Header() {
 
   const navLinks = [
     { name: "Home", href: "/", icon: <Home className="w-5 h-5" /> },
-    { name: "Speed Test", href: "/test", icon: <Clock className="w-5 h-5" /> },
+    { name: "Reading Test", href: "/test", icon: <Clock className="w-5 h-5" /> },
     { name: "Practice", href: "/practice", icon: <BookOpen className="w-5 h-5" /> },
     { name: "About", href: "/about", icon: <Info className="w-5 h-5" /> },
   ];
@@ -96,15 +96,6 @@ export default function Header() {
                     {link.name}
                   </Link>
                 ))}
-                <div className="pt-2">
-                  <Link
-                    href="/test"
-                    className="flex items-center justify-center w-full px-4 py-4 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-500/30"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Start Test Now
-                  </Link>
-                </div>
               </div>
             </motion.div>
           )}
