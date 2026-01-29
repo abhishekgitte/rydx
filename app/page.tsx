@@ -48,7 +48,8 @@ export default function Home() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
   };
@@ -58,7 +59,75 @@ export default function Home() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" as const },
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
+  // Animation variants for "Know Your Enemy" section - scale + fade with slight rotation
+  const enemyContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.15,
+      },
+    },
+  };
+
+  const enemyItemVariants = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8,
+      rotate: -5,
+      y: 30
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      y: 0,
+      transition: { 
+        duration: 0.7, 
+        ease: [0.34, 1.56, 0.64, 1],
+        type: "spring",
+        stiffness: 100,
+        damping: 12
+      },
+    },
+  };
+
+  // Animation variants for "Your Toolkit" section - slide in from sides with fade
+  const toolkitContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const toolkitItemVariants = {
+    hidden: (index: number) => ({ 
+      opacity: 0, 
+      x: index % 2 === 0 ? -50 : 50,
+      y: 20,
+      scale: 0.9
+    }),
+    visible: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      scale: 1,
+      transition: { 
+        duration: 0.6, 
+        ease: [0.25, 0.46, 0.45, 0.94],
+        type: "spring",
+        stiffness: 120,
+        damping: 15
+      },
     },
   };
 
@@ -301,14 +370,14 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              className="max-w-5xl mx-auto"
-            >
-              <div className="mb-8">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                variants={enemyContainerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                className="mb-8"
+              >
                 {/* Mobile: 2-2-2-2 layout */}
                 {/* Row 1: 2 boxes */}
                 <div className="grid grid-cols-2 md:hidden gap-3 mb-3">
@@ -333,8 +402,8 @@ export default function Home() {
                     const Icon = item.icon;
                     return (
                       <motion.div
-                        key={idx}
-                        variants={itemVariants}
+                        key={`mobile-row1-${item.title}`}
+                        variants={enemyItemVariants}
                         className={`relative flex flex-col items-center p-4 rounded-2xl bg-white/90 dark:bg-slate-900/80 border ${item.borderColor} shadow-sm hover:shadow-lg transition-all duration-300 group overflow-hidden`}
                       >
                         {/* Subtle top accent line */}
@@ -376,8 +445,8 @@ export default function Home() {
                     const Icon = item.icon;
                     return (
                       <motion.div
-                        key={idx}
-                        variants={itemVariants}
+                        key={`mobile-row2-${item.title}`}
+                        variants={enemyItemVariants}
                         className={`relative flex flex-col items-center p-4 rounded-2xl bg-white/90 dark:bg-slate-900/80 border ${item.borderColor} shadow-sm hover:shadow-lg transition-all duration-300 group overflow-hidden`}
                       >
                         {/* Subtle top accent line */}
@@ -419,8 +488,8 @@ export default function Home() {
                     const Icon = item.icon;
                     return (
                       <motion.div
-                        key={idx}
-                        variants={itemVariants}
+                        key={`mobile-row3-${item.title}`}
+                        variants={enemyItemVariants}
                         className={`relative flex flex-col items-center p-4 rounded-2xl bg-white/90 dark:bg-slate-900/80 border ${item.borderColor} shadow-sm hover:shadow-lg transition-all duration-300 group overflow-hidden`}
                       >
                         {/* Subtle top accent line */}
@@ -442,7 +511,8 @@ export default function Home() {
                 {/* Row 4: 1 box centered (mobile) */}
                 <div className="flex justify-center md:hidden mb-3">
                   <motion.div
-                    variants={itemVariants}
+                    key="mobile-row4-low-reading-endurance"
+                    variants={enemyItemVariants}
                     className="relative flex flex-col items-center p-4 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-amber-200/80 dark:border-amber-800/40 shadow-sm hover:shadow-lg transition-all duration-300 group w-full max-w-[calc(50%-6px)] overflow-hidden"
                   >
                     {/* Subtle top accent line */}
@@ -459,9 +529,9 @@ export default function Home() {
                   </motion.div>
                 </div>
 
-                {/* Desktop: 4-4 layout */}
-                {/* Row 1: 4 boxes */}
-                <div className="hidden md:grid md:grid-cols-4 gap-4 mb-4">
+                {/* Desktop: 3-3-1 layout */}
+                {/* Row 1: 3 boxes */}
+                <div className="hidden md:grid md:grid-cols-3 gap-4 mb-4">
                   {[
                     {
                       title: "Subvocalization",
@@ -487,20 +557,12 @@ export default function Home() {
                       bg: "bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/30 dark:to-amber-900/10",
                       borderColor: "border-amber-200/80 dark:border-amber-800/40",
                     },
-                    {
-                      title: "Lack of Focus",
-                      description: "Mind wandering during long reading sessions",
-                      icon: ZapOff,
-                      color: "text-red-600 dark:text-red-400",
-                      bg: "bg-gradient-to-br from-red-50 to-red-100/50 dark:from-red-900/30 dark:to-red-900/10",
-                      borderColor: "border-red-200/80 dark:border-red-800/40",
-                    },
                   ].map((item, idx) => {
                     const Icon = item.icon;
                     return (
                       <motion.div
-                        key={idx}
-                        variants={itemVariants}
+                        key={`desktop-row1-${item.title}`}
+                        variants={enemyItemVariants}
                         className={`relative flex flex-col items-center p-6 rounded-2xl bg-white/90 dark:bg-slate-900/80 border ${item.borderColor} shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group overflow-hidden`}
                       >
                         {/* Subtle top accent line */}
@@ -519,9 +581,17 @@ export default function Home() {
                   })}
                 </div>
 
-                {/* Row 2: 4 boxes */}
-                <div className="hidden md:grid md:grid-cols-4 gap-4 mb-4">
+                {/* Row 2: 3 boxes */}
+                <div className="hidden md:grid md:grid-cols-3 gap-4 mb-4">
                   {[
+                    {
+                      title: "Lack of Focus",
+                      description: "Mind wandering during long reading sessions",
+                      icon: ZapOff,
+                      color: "text-red-600 dark:text-red-400",
+                      bg: "bg-gradient-to-br from-red-50 to-red-100/50 dark:from-red-900/30 dark:to-red-900/10",
+                      borderColor: "border-red-200/80 dark:border-red-800/40",
+                    },
                     {
                       title: "Flat Reading Strategy",
                       description: "Reading everything at the same pace",
@@ -538,20 +608,12 @@ export default function Home() {
                       bg: "bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-900/30 dark:to-orange-900/10",
                       borderColor: "border-orange-200/80 dark:border-orange-800/40",
                     },
-                    {
-                      title: "Low Reading Endurance",
-                      description: "Mental fatigue during extended reading",
-                      icon: BookMarked,
-                      color: "text-amber-600 dark:text-amber-400",
-                      bg: "bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/30 dark:to-amber-900/10",
-                      borderColor: "border-amber-200/80 dark:border-amber-800/40",
-                    },
                   ].map((item, idx) => {
                     const Icon = item.icon;
                     return (
                       <motion.div
-                        key={idx}
-                        variants={itemVariants}
+                        key={`desktop-row2-${item.title}`}
+                        variants={enemyItemVariants}
                         className={`relative flex flex-col items-center p-6 rounded-2xl bg-white/90 dark:bg-slate-900/80 border ${item.borderColor} shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group overflow-hidden`}
                       >
                         {/* Subtle top accent line */}
@@ -570,10 +632,34 @@ export default function Home() {
                   })}
                 </div>
 
-              </div>
+                {/* Row 3: 1 box centered */}
+                <div className="hidden md:flex md:justify-center mb-4">
+                  <motion.div
+                    key="desktop-row3-low-reading-endurance"
+                    variants={enemyItemVariants}
+                    className="relative flex flex-col items-center p-6 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-amber-200/80 dark:border-amber-800/40 shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group overflow-hidden max-w-md"
+                  >
+                    {/* Subtle top accent line */}
+                    <div className="absolute top-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
+                    <div className="w-14 h-14 bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/30 dark:to-amber-900/10 rounded-xl flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                      <BookMarked className="w-7 h-7 text-amber-600 dark:text-amber-400" />
+                    </div>
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white text-center mb-2 tracking-tight">
+                      Low Reading Endurance
+                    </h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 text-center leading-relaxed">
+                      Mental fatigue during extended reading
+                    </p>
+                  </motion.div>
+                </div>
+
+              </motion.div>
               
               <motion.div
-                variants={itemVariants}
+                variants={enemyItemVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
                 className="text-center p-6 md:p-8 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border border-emerald-200/60 dark:border-emerald-800/40 shadow-sm"
               >
                 <div className="flex items-center justify-center gap-2 mb-2">
@@ -585,7 +671,7 @@ export default function Home() {
                   RydX helps you identify which of these affect you — and trains you to overcome them.
                 </p>
               </motion.div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -626,10 +712,10 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              variants={containerVariants}
+              variants={toolkitContainerVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, margin: "-50px" }}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
             >
               {[
@@ -643,8 +729,9 @@ export default function Home() {
                 const Icon = item.icon;
                 return (
                   <motion.div
-                    key={idx}
-                    variants={itemVariants}
+                    key={`toolkit-${item.title}`}
+                    custom={idx}
+                    variants={toolkitItemVariants}
                     className={`group relative flex items-center gap-4 md:gap-5 p-5 md:p-6 rounded-2xl border bg-white dark:bg-slate-900/40 ${item.borderColor} shadow-sm hover:shadow-xl transition-all duration-300 backdrop-blur-sm overflow-hidden`}
                   >
                     {/* Subtle gradient overlay on hover */}

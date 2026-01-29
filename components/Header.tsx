@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Zap, Home, Clock, BookOpen, Info } from "lucide-react";
+import { Menu, X, Zap, Home, Clock, BookOpen, Info, Mail } from "lucide-react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,6 +22,7 @@ export default function Header() {
     { name: "Reading Test", href: "/test", icon: <Clock className="w-5 h-5" /> },
     { name: "Practice", href: "/practice", icon: <BookOpen className="w-5 h-5" /> },
     { name: "About", href: "/about", icon: <Info className="w-5 h-5" /> },
+    { name: "Contact Us", href: "/contact", icon: <Mail className="w-5 h-5" /> },
   ];
 
   return (
