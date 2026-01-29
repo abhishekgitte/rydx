@@ -58,31 +58,30 @@ export default function PracticePage() {
     }
   }, [mode, fontSizeMinRun, fontSizeMaxRun, fontSizeMinFlash, fontSizeMaxFlash]);
 
-  // Auto-scroll to highlighted word in run mode
+  // Auto-scroll to highlighted word in run mode - smooth scroll to keep word centered
   useEffect(() => {
-    if (mode === "run" && isPlaying && wordRefs.current[currentWordIndex] && scrollContainerRef.current) {
+    if (mode === "run" && !isEditing && wordRefs.current[currentWordIndex] && scrollContainerRef.current) {
       const wordElement = wordRefs.current[currentWordIndex];
       const container = scrollContainerRef.current;
       
       if (wordElement) {
         const containerRect = container.getBoundingClientRect();
         const wordRect = wordElement.getBoundingClientRect();
+        const wordCenter = wordRect.top + wordRect.height / 2;
+        const containerCenter = containerRect.top + containerRect.height / 2;
+        const offset = wordCenter - containerCenter;
         
-        // Calculate if word is out of view
-        const isAboveView = wordRect.top < containerRect.top;
-        const isBelowView = wordRect.bottom > containerRect.bottom;
-        
-        if (isAboveView || isBelowView) {
-          // Scroll to center the word in the viewport
-          const scrollTop = wordElement.offsetTop - container.offsetTop - (container.clientHeight / 2) + (wordElement.clientHeight / 2);
+        // Smooth scroll whenever word drifts from center (not only when out of view)
+        if (Math.abs(offset) > 20) {
+          const scrollTop = container.scrollTop + offset;
           container.scrollTo({
-            top: Math.max(0, scrollTop),
+            top: Math.max(0, Math.min(scrollTop, container.scrollHeight - container.clientHeight)),
             behavior: 'smooth'
           });
         }
       }
     }
-  }, [currentWordIndex, mode, isPlaying]);
+  }, [currentWordIndex, mode, isEditing]);
 
   useEffect(() => {
     if (isPlaying && words.length > 0) {
@@ -156,7 +155,7 @@ export default function PracticePage() {
     }
   };
 
-  // Keyboard shortcuts for Spacebar, Enter, Dot, and Comma
+  // Keyboard shortcuts for Spacebar, Enter, Dot, Comma, and Arrow Keys
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Don't trigger if user is typing in an input/textarea
@@ -201,6 +200,32 @@ export default function PracticePage() {
 
       // Comma (,) to move backward one word
       if (e.key === ',' && !isEditing && textInput.trim() && words.length > 0) {
+        e.preventDefault();
+        setIsPlaying(false); // Pause when navigating manually
+        setCurrentWordIndex((prev) => {
+          if (prev <= 0) {
+            return 0; // Stay at first word
+          }
+          return prev - 1;
+        });
+        return;
+      }
+
+      // Right Arrow to move forward one word
+      if (e.key === 'ArrowRight' && !isEditing && textInput.trim() && words.length > 0) {
+        e.preventDefault();
+        setIsPlaying(false); // Pause when navigating manually
+        setCurrentWordIndex((prev) => {
+          if (prev >= words.length - 1) {
+            return words.length - 1; // Stay at last word
+          }
+          return prev + 1;
+        });
+        return;
+      }
+
+      // Left Arrow to move backward one word
+      if (e.key === 'ArrowLeft' && !isEditing && textInput.trim() && words.length > 0) {
         e.preventDefault();
         setIsPlaying(false); // Pause when navigating manually
         setCurrentWordIndex((prev) => {
@@ -256,8 +281,8 @@ export default function PracticePage() {
                   <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
                 </div>
                 <div className="text-sm">
-                  <p className="font-bold text-slate-900 dark:text-white leading-none">Pro Tip</p>
-                  <p className="text-slate-500 text-xs mt-1">Use Spacebar to Play/Pause</p>
+                  <p className="font-bold text-slate-900 dark:text-white leading-none">Tip!</p>
+                  <p className="text-slate-500 text-xs mt-1">Start/Pause with Spacebar • Navigate back and forth with arrow keys</p>
                 </div>
               </div>
             </motion.div>
@@ -266,10 +291,10 @@ export default function PracticePage() {
           {/* Fullscreen Container - Reading Area + Controls */}
           <div 
             ref={fullscreenContainerRef}
-            className={`${isFullscreen ? 'h-full flex flex-col bg-gray-50 p-6' : 'scroll-mt-20'}`}
+            className={`${isFullscreen ? 'h-full flex flex-col bg-gray-50 p-6' : 'scroll-mt-20 pt-2.5 pb-4'}`}
           >
             {/* Unified Text Input and Reading Display Area */}
-            <div className={`bg-white rounded-2xl shadow-lg p-4 md:p-6 ${isFullscreen ? 'mb-0 flex-1 flex flex-col' : 'mb-6'}`}>
+            <div className={`bg-white rounded-2xl shadow-lg pt-4 px-4 pb-2 md:pt-5 md:px-6 md:pb-3 ${isFullscreen ? 'mb-0 flex-1 flex flex-col min-h-0' : 'mb-2 md:mb-3'}`}>
             
             {/* Mobile Header */}
             <div className="md:hidden flex items-center justify-between mb-3 pb-3 border-b border-gray-200">
@@ -424,7 +449,7 @@ export default function PracticePage() {
               ) : (
                 <div
                   ref={scrollContainerRef}
-                  className="h-full overflow-y-auto"
+                  className="h-full overflow-y-auto scroll-smooth"
                 >
                 <>
                   {mode === "run" ? (
@@ -473,7 +498,7 @@ export default function PracticePage() {
                             const bionic = getBionicWord(words[currentWordIndex]);
                             return (
                               <span className="inline-block">
-                                <span className="text-blue-600">{bionic.bold}</span>
+                                <span className="font-semibold" style={{ color: '#1B1212' }}>{bionic.bold}</span>
                                 <span className="text-gray-700">{bionic.normal}</span>
                               </span>
                             );
@@ -505,7 +530,7 @@ export default function PracticePage() {
 
             {/* Progress Bar - Below Read Area */}
             {!isEditing && textInput.trim() && words.length > 0 && (
-              <div className="mt-4 px-2">
+              <div className="mt-2 px-2 pb-1">
                 <div 
                   className="w-full bg-gray-200 rounded-full h-2 overflow-visible cursor-pointer relative group"
                   onClick={(e) => {
@@ -516,7 +541,7 @@ export default function PracticePage() {
                     setCurrentWordIndex(Math.max(0, Math.min(words.length - 1, newIndex)));
                     setIsPlaying(false); // Pause when jumping to a position
                   }}
-                  title="Click to jump to position • Use . to move forward, , to move backward"
+                  title="Click to jump to position • Use ← → arrow keys to navigate"
                 >
                   <div
                     className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-300 ease-out"
@@ -541,8 +566,8 @@ export default function PracticePage() {
             <div
               className={
                 isFullscreen
-                  ? "mt-4 bg-white rounded-2xl shadow-lg"
-                  : "sticky bottom-0 z-50 mt-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-gray-200 dark:border-slate-700 rounded-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_-4px_24px_rgba(0,0,0,0.25)] md:mx-auto md:max-w-4xl"
+                  ? "mt-2 bg-white rounded-2xl shadow-lg"
+                  : "sticky bottom-0 z-40 mt-0 md:mt-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-gray-200 dark:border-slate-700 rounded-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_-4px_24px_rgba(0,0,0,0.25)] md:mx-auto md:max-w-4xl"
               }
             >
               {/* Mobile: clean compact layout */}
