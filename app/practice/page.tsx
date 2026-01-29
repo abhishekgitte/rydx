@@ -13,8 +13,17 @@ export default function PracticePage() {
   const [textInput, setTextInput] = useState("");
   const [mode, setMode] = useState<ReadingMode>("run");
   const [isPlaying, setIsPlaying] = useState(false);
-  const [speed, setSpeed] = useState(200); // words per minute
-  const [fontSize, setFontSize] = useState(18);
+  const [speed, setSpeed] = useState(250); // words per minute
+  const [fontSizeRun, setFontSizeRun] = useState(16);
+  const [fontSizeFlash, setFontSizeFlash] = useState(48);
+  const fontSize = mode === "run" ? fontSizeRun : fontSizeFlash;
+  const editFontSize = 16;
+  const fontSizeMinRun = 12;
+  const fontSizeMaxRun = 32;
+  const fontSizeMinFlash = 24;
+  const fontSizeMaxFlash = 96;
+  const fontSizeMin = mode === "run" ? fontSizeMinRun : fontSizeMinFlash;
+  const fontSizeMax = mode === "run" ? fontSizeMaxRun : fontSizeMaxFlash;
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isEditing, setIsEditing] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -23,6 +32,8 @@ export default function PracticePage() {
   const fullscreenContainerRef = useRef<HTMLDivElement>(null);
   const { isFullscreen, setElement, toggleFullscreen } = useFullscreen<HTMLDivElement>();
 
+  const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
   useEffect(() => {
     if (fullscreenContainerRef.current) {
       setElement(fullscreenContainerRef.current);
@@ -30,6 +41,22 @@ export default function PracticePage() {
   }, [setElement]);
 
   const words = textInput.trim() ? textInput.split(/\s+/).filter(word => word.length > 0) : [];
+
+  const handleFontSizeChange = (value: number) => {
+    if (mode === "run") {
+      setFontSizeRun(clamp(value, fontSizeMinRun, fontSizeMaxRun));
+    } else {
+      setFontSizeFlash(clamp(value, fontSizeMinFlash, fontSizeMaxFlash));
+    }
+  };
+
+  useEffect(() => {
+    if (mode === "run") {
+      setFontSizeRun((prev) => clamp(prev, fontSizeMinRun, fontSizeMaxRun));
+    } else {
+      setFontSizeFlash((prev) => clamp(prev, fontSizeMinFlash, fontSizeMaxFlash));
+    }
+  }, [mode, fontSizeMinRun, fontSizeMaxRun, fontSizeMinFlash, fontSizeMaxFlash]);
 
   // Auto-scroll to highlighted word in run mode
   useEffect(() => {
@@ -349,7 +376,7 @@ export default function PracticePage() {
                   placeholder="Paste your article, passage, or any text here to start practicing..."
                   className="w-full h-full px-6 py-4 border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none text-gray-800 bg-transparent leading-relaxed overflow-y-auto"
                   style={{ 
-                    fontSize: `${fontSize}px`, 
+                    fontSize: `${editFontSize}px`, 
                     lineHeight: "1.8"
                   }}
                 />
@@ -399,14 +426,14 @@ export default function PracticePage() {
                       {currentWordIndex < words.length ? (
                         <div
                           className="text-center px-4"
-                          style={{ fontSize: `${fontSize + 12}px`, lineHeight: "1.5" }}
+                      style={{ fontSize: `${fontSize}px`, lineHeight: "1.5" }}
                         >
                           {(() => {
                             const bionic = getBionicWord(words[currentWordIndex]);
                             return (
                               <span className="inline-block">
-                                <span className="font-bold text-gray-900">{bionic.bold}</span>
-                                <span className="font-normal text-gray-700">{bionic.normal}</span>
+                                <span className="text-blue-600">{bionic.bold}</span>
+                                <span className="text-gray-700">{bionic.normal}</span>
                               </span>
                             );
                           })()}
@@ -489,9 +516,9 @@ export default function PracticePage() {
                   {/* Font */}
                   <div className="flex items-center bg-gray-100 rounded-lg px-1.5 py-1">
                     <span className="text-[10px] text-gray-500 font-medium mr-1">Size</span>
-                    <button onClick={() => setFontSize(Math.max(12, fontSize - 2))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
+                    <button onClick={() => handleFontSizeChange(Math.max(fontSizeMin, fontSize - 2))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
                     <span className="text-xs font-bold text-gray-900 min-w-[24px] text-center">{fontSize}</span>
-                    <button onClick={() => setFontSize(Math.min(48, fontSize + 2))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
+                    <button onClick={() => handleFontSizeChange(Math.min(fontSizeMax, fontSize + 2))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
                   </div>
                 </div>
 
@@ -518,7 +545,7 @@ export default function PracticePage() {
               <div className="hidden md:block p-4 md:p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Mode</label>
+                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide text-center">Mode</label>
                 <div className="flex gap-2">
                   <button
                     onClick={() => { setMode("run"); handleReset(); }}
@@ -531,7 +558,7 @@ export default function PracticePage() {
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Speed: <span className="text-blue-600">{speed} WPM</span></label>
+                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide text-center">Speed: <span className="text-blue-600">{speed} WPM</span></label>
                 <div className="flex items-center gap-2">
                   <button onClick={() => setSpeed(Math.max(50, speed - 5))} className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" aria-label="Decrease WPM">−</button>
                   <input type="range" min="50" max="1200" step="5" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
@@ -540,16 +567,16 @@ export default function PracticePage() {
                 <div className="flex justify-between text-xs text-gray-500 mt-1"><span>50</span><span>1200</span></div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Font: <span className="text-blue-600">{fontSize}px</span></label>
+                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide text-center">Text Size: <span className="text-blue-600">{fontSize}px</span></label>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => setFontSize(Math.max(12, fontSize - 2))} className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" aria-label="Decrease font size">−</button>
-                  <input type="range" min="12" max="48" step="2" value={fontSize} onChange={(e) => setFontSize(Number(e.target.value))} className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
-                  <button onClick={() => setFontSize(Math.min(48, fontSize + 2))} className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" aria-label="Increase font size">+</button>
+                  <button onClick={() => handleFontSizeChange(Math.max(fontSizeMin, fontSize - 2))} className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" aria-label="Decrease font size">−</button>
+                  <input type="range" min={fontSizeMin} max={fontSizeMax} step="2" value={fontSize} onChange={(e) => handleFontSizeChange(Number(e.target.value))} className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                  <button onClick={() => handleFontSizeChange(Math.min(fontSizeMax, fontSize + 2))} className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" aria-label="Increase font size">+</button>
                 </div>
-                <div className="flex justify-between text-xs text-gray-500 mt-1"><span>12</span><span>48</span></div>
+                <div className="flex justify-between text-xs text-gray-500 mt-1"><span>{fontSizeMin}</span><span>{fontSizeMax}</span></div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Controls</label>
+                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide text-center">Controls</label>
                 <div className="flex gap-2 items-stretch">
                   <button
                     onClick={isPlaying ? handlePause : handleStartReading}
