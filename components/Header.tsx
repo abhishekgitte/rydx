@@ -10,10 +10,17 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -27,12 +34,13 @@ export default function Header() {
 
   return (
     <header 
-      className={`glass-nav transition-all duration-300 ${
+      className={`glass-nav transition-shadow duration-300 ${
         scrolled ? "shadow-lg" : ""
       }`}
+      style={{ willChange: 'transform' }}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`flex justify-between items-center transition-all duration-300 ${
+        <div className={`flex justify-between items-center transition-[height] duration-300 ease-out ${
           scrolled ? "h-16" : "h-20"
         }`}>
           {/* Logo - same as footer */}

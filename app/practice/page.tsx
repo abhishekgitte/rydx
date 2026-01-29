@@ -156,7 +156,7 @@ export default function PracticePage() {
     }
   };
 
-  // Keyboard shortcuts for Spacebar and Enter
+  // Keyboard shortcuts for Spacebar, Enter, Dot, and Comma
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Don't trigger if user is typing in an input/textarea
@@ -183,6 +183,33 @@ export default function PracticePage() {
           }
           setIsPlaying(true);
         }
+        return;
+      }
+
+      // Dot (.) to move forward one word
+      if (e.key === '.' && !isEditing && textInput.trim() && words.length > 0) {
+        e.preventDefault();
+        setIsPlaying(false); // Pause when navigating manually
+        setCurrentWordIndex((prev) => {
+          if (prev >= words.length - 1) {
+            return words.length - 1; // Stay at last word
+          }
+          return prev + 1;
+        });
+        return;
+      }
+
+      // Comma (,) to move backward one word
+      if (e.key === ',' && !isEditing && textInput.trim() && words.length > 0) {
+        e.preventDefault();
+        setIsPlaying(false); // Pause when navigating manually
+        setCurrentWordIndex((prev) => {
+          if (prev <= 0) {
+            return 0; // Stay at first word
+          }
+          return prev - 1;
+        });
+        return;
       }
     };
 
@@ -377,7 +404,9 @@ export default function PracticePage() {
                   className="w-full h-full px-6 py-4 border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none text-gray-800 bg-transparent leading-relaxed overflow-y-auto"
                   style={{ 
                     fontSize: `${editFontSize}px`, 
-                    lineHeight: "1.8"
+                    lineHeight: "1.8",
+                    fontFamily: "'Georgia', 'Times New Roman', 'Times', serif",
+                    letterSpacing: "0.01em"
                   }}
                 />
               ) : !textInput.trim() ? (
@@ -401,7 +430,13 @@ export default function PracticePage() {
                   {mode === "run" ? (
                     <div
                       className="px-6 py-4 max-w-4xl mx-auto"
-                      style={{ fontSize: `${fontSize}px`, lineHeight: "1.8" }}
+                      style={{ 
+                        fontSize: `${fontSize}px`, 
+                        lineHeight: "1.8",
+                        fontFamily: "'Georgia', 'Times New Roman', 'Times', serif",
+                        letterSpacing: "0.01em",
+                        fontWeight: "400"
+                      }}
                     >
                       <p className="text-gray-800">
                         {words.map((word, index) => (
@@ -426,7 +461,13 @@ export default function PracticePage() {
                       {currentWordIndex < words.length ? (
                         <div
                           className="text-center px-4"
-                      style={{ fontSize: `${fontSize}px`, lineHeight: "1.5" }}
+                          style={{ 
+                            fontSize: `${fontSize}px`, 
+                            lineHeight: "1.5",
+                            fontFamily: "'Georgia', 'Times New Roman', 'Times', serif",
+                            letterSpacing: "0.02em",
+                            fontWeight: "400"
+                          }}
                         >
                           {(() => {
                             const bionic = getBionicWord(words[currentWordIndex]);
@@ -465,11 +506,30 @@ export default function PracticePage() {
             {/* Progress Bar - Below Read Area */}
             {!isEditing && textInput.trim() && words.length > 0 && (
               <div className="mt-4 px-2">
-                <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                <div 
+                  className="w-full bg-gray-200 rounded-full h-2 overflow-visible cursor-pointer relative group"
+                  onClick={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    const percentage = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
+                    const newIndex = Math.floor((percentage / 100) * words.length);
+                    setCurrentWordIndex(Math.max(0, Math.min(words.length - 1, newIndex)));
+                    setIsPlaying(false); // Pause when jumping to a position
+                  }}
+                  title="Click to jump to position • Use . to move forward, , to move backward"
+                >
                   <div
                     className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-300 ease-out"
                     style={{ 
                       width: `${Math.min(100, words.length > 0 ? (Math.min(currentWordIndex + 1, words.length) / words.length) * 100 : 0)}%` 
+                    }}
+                  />
+                  {/* White dot indicator */}
+                  <div
+                    className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full border-2 border-blue-600 shadow-md transition-all duration-300 ease-out z-10"
+                    style={{
+                      left: `${(currentWordIndex / words.length) * 100}%`,
+                      transform: 'translate(-50%, -50%)'
                     }}
                   />
                 </div>
@@ -486,39 +546,39 @@ export default function PracticePage() {
               }
             >
               {/* Mobile: clean compact layout */}
-              <div className={`md:hidden p-4 ${!isFullscreen ? "pb-[calc(1rem+env(safe-area-inset-bottom,0px))]" : ""}`}>
+              <div className={`md:hidden p-2.5 ${!isFullscreen ? "pb-[calc(0.625rem+env(safe-area-inset-bottom,0px))]" : ""}`}>
                 {/* Row 1: Mode + Speed + Font */}
-                <div className="flex items-center justify-between gap-2 mb-3">
+                <div className="flex items-center justify-between gap-2 mb-2">
                   {/* Mode Toggle */}
-                  <div className="flex bg-gray-100 rounded-lg p-0.5">
+                  <div className="flex gap-2">
                     <button
                       onClick={() => { setMode("run"); handleReset(); }}
-                      className={`px-4 py-2.5 rounded-md text-xs font-semibold transition-all ${mode === "run" ? "bg-blue-600 text-white shadow-sm" : "text-gray-500"}`}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${mode === "run" ? "bg-blue-600 text-white shadow-sm" : "bg-gray-100 text-gray-500"}`}
                     >
                       Run
                     </button>
                     <button
                       onClick={() => { setMode("flash"); handleReset(); }}
-                      className={`px-4 py-2.5 rounded-md text-xs font-semibold transition-all ${mode === "flash" ? "bg-blue-600 text-white shadow-sm" : "text-gray-500"}`}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${mode === "flash" ? "bg-blue-600 text-white shadow-sm" : "bg-gray-100 text-gray-500"}`}
                     >
                       Flash
                     </button>
                   </div>
 
                   {/* Speed */}
-                  <div className="flex items-center bg-gray-100 rounded-lg px-1.5 py-1">
+                  <div className="flex items-center bg-gray-100 rounded-lg px-1.5 py-0.5">
                     <span className="text-[10px] text-gray-500 font-medium mr-1">Speed</span>
-                    <button onClick={() => setSpeed(Math.max(50, speed - 10))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
+                    <button onClick={() => setSpeed(Math.max(50, speed - 10))} className="w-7 h-7 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
                     <span className="text-xs font-bold text-gray-900 min-w-[32px] text-center">{speed}</span>
-                    <button onClick={() => setSpeed(Math.min(1200, speed + 10))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
+                    <button onClick={() => setSpeed(Math.min(1200, speed + 10))} className="w-7 h-7 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
                   </div>
 
                   {/* Font */}
-                  <div className="flex items-center bg-gray-100 rounded-lg px-1.5 py-1">
+                  <div className="flex items-center bg-gray-100 rounded-lg px-1.5 py-0.5">
                     <span className="text-[10px] text-gray-500 font-medium mr-1">Size</span>
-                    <button onClick={() => handleFontSizeChange(Math.max(fontSizeMin, fontSize - 2))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
+                    <button onClick={() => handleFontSizeChange(Math.max(fontSizeMin, fontSize - 2))} className="w-7 h-7 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">−</button>
                     <span className="text-xs font-bold text-gray-900 min-w-[24px] text-center">{fontSize}</span>
-                    <button onClick={() => handleFontSizeChange(Math.min(fontSizeMax, fontSize + 2))} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
+                    <button onClick={() => handleFontSizeChange(Math.min(fontSizeMax, fontSize + 2))} className="w-7 h-7 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded text-sm font-medium">+</button>
                   </div>
                 </div>
 
@@ -527,7 +587,7 @@ export default function PracticePage() {
                   <button
                     onClick={isPlaying ? handlePause : handleStartReading}
                     disabled={!textInput.trim()}
-                    className="flex-1 h-10 bg-blue-600 text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                    className="flex-1 h-9 bg-blue-600 text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
                   >
                     {isPlaying ? (
                       <><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>Pause</>
@@ -535,30 +595,30 @@ export default function PracticePage() {
                       <><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" /></svg>Start</>
                     )}
                   </button>
-                  <button onClick={handleReset} className="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 text-gray-600 hover:bg-gray-200" title="Reset" aria-label="Reset">
+                  <button onClick={handleReset} className="w-9 h-9 flex items-center justify-center rounded-xl bg-gray-100 text-gray-600 hover:bg-gray-200" title="Reset" aria-label="Reset">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
                   </button>
                 </div>
               </div>
 
               {/* Desktop: full grid */}
-              <div className="hidden md:block p-4 md:p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              <div className="hidden md:block p-3 md:p-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide text-center">Mode</label>
+                <label className="block text-xs font-semibold text-gray-700 mb-1.5 uppercase tracking-wide text-center">Mode</label>
                 <div className="flex gap-2">
                   <button
                     onClick={() => { setMode("run"); handleReset(); }}
-                    className={`flex-1 px-4 py-2.5 rounded-lg font-medium transition-all ${mode === "run" ? "bg-blue-600 text-white shadow-md" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+                    className={`flex-1 px-3 py-2 rounded-lg font-medium transition-all ${mode === "run" ? "bg-blue-600 text-white shadow-md" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
                   >Run</button>
                   <button
                     onClick={() => { setMode("flash"); handleReset(); }}
-                    className={`flex-1 px-4 py-2.5 rounded-lg font-medium transition-all ${mode === "flash" ? "bg-blue-600 text-white shadow-md" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+                    className={`flex-1 px-3 py-2 rounded-lg font-medium transition-all ${mode === "flash" ? "bg-blue-600 text-white shadow-md" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
                   >Flash</button>
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide text-center">Speed: <span className="text-blue-600">{speed} WPM</span></label>
+                <label className="block text-xs font-semibold text-gray-700 mb-1.5 uppercase tracking-wide text-center">Speed: <span className="text-blue-600">{speed} WPM</span></label>
                 <div className="flex items-center gap-2">
                   <button onClick={() => setSpeed(Math.max(50, speed - 5))} className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" aria-label="Decrease WPM">−</button>
                   <input type="range" min="50" max="1200" step="5" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
@@ -567,7 +627,7 @@ export default function PracticePage() {
                 <div className="flex justify-between text-xs text-gray-500 mt-1"><span>50</span><span>1200</span></div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide text-center">Text Size: <span className="text-blue-600">{fontSize}px</span></label>
+                <label className="block text-xs font-semibold text-gray-700 mb-1.5 uppercase tracking-wide text-center">Text Size: <span className="text-blue-600">{fontSize}px</span></label>
                 <div className="flex items-center gap-2">
                   <button onClick={() => handleFontSizeChange(Math.max(fontSizeMin, fontSize - 2))} className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" aria-label="Decrease font size">−</button>
                   <input type="range" min={fontSizeMin} max={fontSizeMax} step="2" value={fontSize} onChange={(e) => handleFontSizeChange(Number(e.target.value))} className="flex-1 h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
@@ -576,16 +636,16 @@ export default function PracticePage() {
                 <div className="flex justify-between text-xs text-gray-500 mt-1"><span>{fontSizeMin}</span><span>{fontSizeMax}</span></div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide text-center">Controls</label>
+                <label className="block text-xs font-semibold text-gray-700 mb-1.5 uppercase tracking-wide text-center">Controls</label>
                 <div className="flex gap-2 items-stretch">
                   <button
                     onClick={isPlaying ? handlePause : handleStartReading}
                     disabled={!textInput.trim()}
-                    className="flex-1 min-h-[44px] px-5 py-3 rounded-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md disabled:shadow-none"
+                    className="flex-1 min-h-[38px] px-4 py-2 rounded-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md disabled:shadow-none"
                   >
                     {isPlaying ? <><svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg><span className="hidden sm:inline">Pause</span></> : <><svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" /></svg><span className="hidden sm:inline">Start</span></>}
                   </button>
-                  <button onClick={handleReset} className="min-w-[44px] min-h-[44px] w-12 flex items-center justify-center bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-all" title="Reset" aria-label="Reset">
+                  <button onClick={handleReset} className="min-w-[38px] min-h-[38px] w-10 flex items-center justify-center bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-all" title="Reset" aria-label="Reset">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
                   </button>
                 </div>

@@ -174,47 +174,47 @@ export default function TestPage() {
     <div className="min-h-screen flex flex-col bg-slate-50/50">
       <Header />
 
-      <main className="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+      <main className={`flex-grow max-w-6xl mx-auto w-full px-5 sm:px-6 lg:px-8 ${isReading ? 'py-2 sm:py-3' : 'py-8 sm:py-10'}`}>
         <div className="bg-white rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-200/50 overflow-hidden">
-          <div className="px-6 sm:px-10 pt-10 pb-8 border-b border-slate-100">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
+          <div className={`px-5 sm:px-6 border-b border-slate-100 ${isReading ? 'pt-3 sm:pt-4 pb-2 sm:pb-3' : 'pt-6 sm:pt-8 pb-5 sm:pb-6'}`}>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-1">
               Reading Test
             </h1>
           </div>
 
-          <div className="p-6 sm:p-10">
+          <div className={`${isReading ? 'px-4 py-3 sm:p-4' : 'p-6 sm:p-8'}`}>
             {!isReading && !showQuestions && !results && (
-              <div className="text-center py-12 sm:py-20">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-indigo-50 text-indigo-500 mb-8 ring-8 ring-indigo-50/50">
-                  <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="text-center py-6 sm:py-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-50 text-indigo-500 mb-5 ring-4 ring-indigo-50/50">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 mb-4 tracking-tight">
                   Ready to Take the Reading Test?
                 </h2>
                 
-                <div className="max-w-2xl mx-auto mb-10">
-                  <p className="text-slate-600 text-lg sm:text-xl leading-relaxed">
+                <div className="max-w-2xl mx-auto mb-5">
+                  <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
                     Read the short passage at your normal pace. When you&apos;re finished, click <strong className="text-slate-900">Finish Reading</strong> below the passage, then answer a few comprehension questions to measure your speed and understanding.
                   </p>
                 </div>
 
-                <div className="max-w-sm mx-auto p-6 rounded-2xl bg-slate-50 border border-slate-100 mb-10 transition-all hover:shadow-md">
-                  <p className="text-slate-900 text-lg font-bold mb-4">Are you ready?</p>
+                <div className="max-w-sm mx-auto p-4 rounded-2xl bg-slate-50 border border-slate-100 mb-5 transition-all hover:shadow-md">
+                  <p className="text-slate-900 text-base font-bold mb-3">Are you ready?</p>
                   <label 
                     htmlFor="ready-checkbox" 
-                    className={`flex items-center justify-center gap-3 p-4 rounded-xl border-2 transition-all cursor-pointer ${
+                    className={`flex items-center justify-center gap-3 p-3 rounded-xl border-2 transition-all cursor-pointer ${
                       isReady 
                         ? "bg-indigo-50 border-indigo-200 text-indigo-700 shadow-sm" 
                         : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
                     }`}
                   >
-                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
                       isReady ? "bg-indigo-600 border-indigo-600" : "bg-white border-slate-300"
                     }`}>
                       {isReady && (
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                       )}
@@ -226,14 +226,14 @@ export default function TestPage() {
                       onChange={(e) => setIsReady(e.target.checked)}
                       className="hidden"
                     />
-                    <span className="text-lg font-bold tracking-tight">Yes, I am ready</span>
+                    <span className="text-base font-bold tracking-tight">Yes, I am ready</span>
                   </label>
                 </div>
 
                 <button
                   onClick={startTest}
                   disabled={!isReady}
-                  className="bg-[#4f46e5] text-white px-12 py-5 rounded-2xl text-xl font-bold hover:bg-[#4338ca] active:scale-[0.98] transition-all shadow-[0_20px_40px_-10px_rgba(79,70,229,0.4)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[#4f46e5] disabled:shadow-none"
+                  className="bg-[#4f46e5] text-white px-8 py-3 rounded-xl text-lg font-bold hover:bg-[#4338ca] active:scale-[0.98] transition-all shadow-[0_20px_40px_-10px_rgba(79,70,229,0.4)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[#4f46e5] disabled:shadow-none"
                 >
                   Start Reading Test
                 </button>
@@ -241,9 +241,9 @@ export default function TestPage() {
             )}
 
             {isReading && (
-              <div className="space-y-4">
-                <div className="flex items-center justify-between flex-wrap gap-2 text-sm">
-                  <span className="inline-flex items-center gap-1.5 text-amber-700 bg-amber-50 px-3 py-1.5 rounded-lg font-medium">
+              <div className="flex flex-col space-y-2 sm:space-y-3" style={{ height: 'calc(100vh - 200px)', maxHeight: 'calc(100vh - 200px)' }}>
+                <div className="flex items-center justify-between flex-wrap gap-2 text-xs sm:text-sm flex-shrink-0">
+                  <span className="inline-flex items-center gap-1.5 text-amber-700 bg-amber-50 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg font-medium">
                     <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
                     Reading in progress
                   </span>
@@ -251,24 +251,27 @@ export default function TestPage() {
                 </div>
                 <div
                   ref={articleContainerRef}
-                  className="rounded-xl bg-slate-50/80 border border-slate-200/80 p-5 sm:p-6 max-h-[60vh] overflow-y-auto"
+                  className="rounded-xl bg-slate-50/80 border border-slate-200/80 px-4 py-3 sm:p-5 md:p-6 overflow-y-auto flex-1 min-h-0"
                 >
-                  <article className="prose prose-slate max-w-none prose-p:text-slate-700 prose-p:leading-relaxed prose-p:mb-4 prose-p:text-[18px]">
-                    <p className="whitespace-pre-wrap text-slate-700 leading-relaxed text-[18px]">
+                  <article className="prose prose-slate max-w-none prose-p:text-slate-700 prose-p:leading-relaxed prose-p:mb-3 sm:prose-p:mb-4">
+                    <p 
+                      className="whitespace-pre-wrap text-slate-700 leading-relaxed text-base sm:text-lg md:text-[18px]" 
+                      style={{ fontFamily: "'Georgia', 'Times New Roman', 'Times', serif" }}
+                    >
                       {testArticle}
                     </p>
                   </article>
                 </div>
-                <div className="flex flex-col items-center gap-2 pt-2">
+                <div className="flex flex-col items-center gap-1.5 sm:gap-2 pt-1 sm:pt-2 flex-shrink-0">
                   {!hasReachedEnd && (
-                    <p className="text-slate-500 text-sm">
+                    <p className="text-slate-500 text-xs sm:text-sm text-center px-2">
                       Scroll to the end of the passage to enable <strong>Finish Reading</strong>.
                     </p>
                   )}
                   <button
                     onClick={finishReading}
                     disabled={!hasReachedEnd}
-                    className="bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-lg shadow-indigo-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600"
+                    className="bg-indigo-600 text-white px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-xl text-sm sm:text-base font-semibold hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-lg shadow-indigo-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600 w-full sm:w-auto"
                   >
                     Finish Reading
                   </button>
@@ -277,8 +280,8 @@ export default function TestPage() {
             )}
 
             {showQuestions && (
-              <div className="space-y-6">
-                <div className="rounded-xl bg-amber-50 border border-amber-200/80 px-4 py-3">
+              <div className="space-y-4">
+                <div className="rounded-xl bg-amber-50 border border-amber-200/80 px-4 py-2.5">
                   <p className="text-amber-900 font-medium text-sm sm:text-base">
                     Answer all 5 questions, then submit.
                   </p>
@@ -286,16 +289,16 @@ export default function TestPage() {
                 {comprehensionQuestions.map((q) => (
                   <div
                     key={q.id}
-                    className="rounded-xl border border-slate-200 bg-slate-50/50 p-5 sm:p-6"
+                    className="rounded-xl border border-slate-200 bg-slate-50/50 p-4 sm:p-5"
                   >
-                    <h3 className="font-semibold text-slate-900 mb-3 text-sm sm:text-base">
+                    <h3 className="font-semibold text-slate-900 mb-2.5 text-sm sm:text-base">
                       {q.id}. {q.question}
                     </h3>
                     <div className="space-y-2">
                       {q.options.map((option, index) => (
                         <label
                           key={index}
-                          className="flex items-start gap-3 p-3 rounded-lg hover:bg-white cursor-pointer border border-transparent hover:border-slate-200 transition-colors"
+                          className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-white cursor-pointer border border-transparent hover:border-slate-200 transition-colors"
                         >
                           <input
                             type="radio"
@@ -313,7 +316,7 @@ export default function TestPage() {
                 ))}
                 <button
                   onClick={submitAnswers}
-                  className="w-full bg-indigo-600 text-white py-3.5 rounded-xl text-base font-semibold hover:bg-indigo-700 active:scale-[0.99] transition-all shadow-lg shadow-indigo-500/25"
+                  className="w-full bg-indigo-600 text-white py-3 rounded-xl text-base font-semibold hover:bg-indigo-700 active:scale-[0.99] transition-all shadow-lg shadow-indigo-500/25"
                 >
                   Submit Answers
                 </button>
@@ -321,24 +324,24 @@ export default function TestPage() {
             )}
 
             {results && (
-              <div className="text-center py-10 sm:py-12">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 mb-6">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="text-center py-4 sm:py-6">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 mb-4">
+                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-semibold text-slate-900 mb-6">Your Results</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto mb-8">
-                  <div className="rounded-xl bg-indigo-50 border border-indigo-200/80 p-5">
-                    <div className="text-3xl font-bold text-indigo-600">{results.wpm}</div>
-                    <div className="text-slate-600 text-sm font-medium">Words per minute</div>
+                <h2 className="text-lg sm:text-xl font-semibold text-slate-900 mb-4">Your Results</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto mb-4">
+                  <div className="rounded-xl bg-indigo-50 border border-indigo-200/80 p-4">
+                    <div className="text-2xl sm:text-3xl font-bold text-indigo-600">{results.wpm}</div>
+                    <div className="text-slate-600 text-xs sm:text-sm font-medium">Words per minute</div>
                   </div>
-                  <div className="rounded-xl bg-emerald-50 border border-emerald-200/80 p-5">
-                    <div className="text-3xl font-bold text-emerald-600">{results.comprehension}%</div>
-                    <div className="text-slate-600 text-sm font-medium">Comprehension</div>
+                  <div className="rounded-xl bg-emerald-50 border border-emerald-200/80 p-4">
+                    <div className="text-2xl sm:text-3xl font-bold text-emerald-600">{results.comprehension}%</div>
+                    <div className="text-slate-600 text-xs sm:text-sm font-medium">Comprehension</div>
                   </div>
                 </div>
-                <p className="text-slate-600 text-sm sm:text-base mb-8 max-w-md mx-auto">
+                <p className="text-slate-600 text-sm sm:text-base mb-4 max-w-md mx-auto">
                   {results.wpm < 200 && "You're reading at a beginner pace. Regular practice can help you improve."}
                   {results.wpm >= 200 && results.wpm < 300 && "Solid average pace. Keep practicing to reach higher levels."}
                   {results.wpm >= 300 && results.wpm < 400 && "Strong reading speed—above average."}
