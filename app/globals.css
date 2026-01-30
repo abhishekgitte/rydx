@@ -92,30 +92,36 @@ body {
       radial-gradient(at 0% 0%, hsla(202,100%,93%,1) 0, transparent 50%);
   }
 
-  .dark .mesh-gradient {
-    background-color: hsla(222,47%,11%,1);
-    background-image:
-      radial-gradient(at 40% 20%, hsla(222,47%,15%,1) 0, transparent 50%),
-      radial-gradient(at 80% 0%, hsla(242,47%,15%,1) 0, transparent 50%),
-      radial-gradient(at 0% 50%, hsla(202,47%,15%,1) 0, transparent 50%),
-      radial-gradient(at 80% 50%, hsla(262,47%,15%,1) 0, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(222,47%,15%,1) 0, transparent 50%),
-      radial-gradient(at 80% 100%, hsla(242,47%,15%,1) 0, transparent 50%),
-      radial-gradient(at 0% 0%, hsla(202,47%,15%,1) 0, transparent 50%);
+  @media (prefers-color-scheme: dark) {
+    .mesh-gradient {
+      background-color: hsla(222,47%,11%,1);
+      background-image:
+        radial-gradient(at 40% 20%, hsla(222,47%,15%,1) 0, transparent 50%),
+        radial-gradient(at 80% 0%, hsla(242,47%,15%,1) 0, transparent 50%),
+        radial-gradient(at 0% 50%, hsla(202,47%,15%,1) 0, transparent 50%),
+        radial-gradient(at 80% 50%, hsla(262,47%,15%,1) 0, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(222,47%,15%,1) 0, transparent 50%),
+        radial-gradient(at 80% 100%, hsla(242,47%,15%,1) 0, transparent 50%),
+        radial-gradient(at 0% 0%, hsla(202,47%,15%,1) 0, transparent 50%);
+    }
   }
 
   .section-warm {
     background: linear-gradient(180deg, #fafbff 0%, #f1f5f9 100%);
   }
-  .dark .section-warm {
-    background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  @media (prefers-color-scheme: dark) {
+    .section-warm {
+      background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+    }
   }
 
   .section-slate {
     background-color: #f8fafc;
   }
-  .dark .section-slate {
-    background-color: #0c1222;
+  @media (prefers-color-scheme: dark) {
+    .section-slate {
+      background-color: #0c1222;
+    }
   }
 
   .section-pattern {
@@ -123,10 +129,12 @@ body {
     background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
     background-size: 24px 24px;
   }
-  .dark .section-pattern {
-    background-color: #0f172a;
-    background-image: radial-gradient(#1e293b 1px, transparent 1px);
-    background-size: 24px 24px;
+  @media (prefers-color-scheme: dark) {
+    .section-pattern {
+      background-color: #0f172a;
+      background-image: radial-gradient(#1e293b 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
   }
 }
 
@@ -139,12 +147,17 @@ body {
   @apply font-normal text-slate-600 dark:text-slate-400;
 }
 
-/* Reading highlight - #1B1212, no underline */
+/* Reading highlight - dark in light mode, light in dark mode */
 .word-highlight {
   color: #1B1212;
   font-weight: 500;
   opacity: 1;
   transition: opacity 0.1s ease-out, color 0.1s ease-out;
+}
+@media (prefers-color-scheme: dark) {
+  .word-highlight {
+    color: #e2e8f0;
+  }
 }
 
 .word-faded {

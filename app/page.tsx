@@ -357,7 +357,7 @@ export default function Home() {
               </motion.div>
               
               <h2 className="text-2xl md:text-5xl font-extrabold mb-6 tracking-tight">
-                <span className="bg-gradient-to-r from-rose-600 via-orange-600 to-amber-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-rose-600 via-orange-600 to-amber-600 dark:from-rose-400 dark:via-orange-300 dark:to-amber-300 bg-clip-text text-transparent">
                   What Slows Your Reading
                 </span>
               </h2>
@@ -701,7 +701,7 @@ export default function Home() {
               </motion.div>
               
               <h2 className="text-2xl md:text-5xl font-extrabold mb-6 tracking-tight">
-                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-300 dark:to-purple-300 bg-clip-text text-transparent">
                   Everything You Need to Read Faster & Better
                 </span>
               </h2>
@@ -797,7 +797,7 @@ export default function Home() {
               </motion.div>
               
               <h2 className="text-2xl md:text-5xl font-extrabold mb-6 tracking-tight">
-                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-300 dark:to-purple-300 bg-clip-text text-transparent">
                   How to Get the Most from RydX
                 </span>
               </h2>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Zap, Github, Twitter, Mail } from "lucide-react";
+import { Zap } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -43,17 +43,6 @@ export default function Footer() {
               <br />
               Built for serious readers.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="p-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-500 hover:text-blue-600 hover:border-blue-600 transition-all shadow-sm">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="p-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-500 hover:text-blue-600 hover:border-blue-600 transition-all shadow-sm">
-                <Github className="w-5 h-5" />
-              </a>
-              <a href="#" className="p-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-500 hover:text-blue-600 hover:border-blue-600 transition-all shadow-sm">
-                <Mail className="w-5 h-5" />
-              </a>
-            </div>
           </div>
 
           {/* Links Sections */}

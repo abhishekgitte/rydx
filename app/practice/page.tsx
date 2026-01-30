@@ -256,7 +256,7 @@ export default function PracticePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-slate-950">
       {!isFullscreen && <Header />}
       
       <main className={`flex-grow w-full ${isFullscreen ? 'p-0' : 'px-4 sm:px-6 lg:px-8 py-6 lg:py-8'}`}>
@@ -264,28 +264,28 @@ export default function PracticePage() {
           {/* Fullscreen Container - Reading Area + Controls */}
           <div 
             ref={fullscreenContainerRef}
-            className={`${isFullscreen ? 'h-full flex flex-col bg-gray-50 p-6' : 'scroll-mt-16 pt-2 pb-4'}`}
+            className={`${isFullscreen ? 'h-full flex flex-col bg-gray-50 dark:bg-slate-950 p-6' : 'scroll-mt-16 pt-2 pb-4'}`}
           >
             {/* Unified Text Input and Reading Display Area */}
-            <div className={`bg-white rounded-2xl shadow-lg pt-4 px-4 pb-2 md:pt-5 md:px-6 md:pb-3 ${isFullscreen ? 'mb-0 flex-1 flex flex-col min-h-0' : 'mb-2 md:mb-3'}`}>
+            <div className={`bg-white dark:bg-slate-900 rounded-2xl shadow-lg dark:shadow-none dark:border dark:border-slate-800 pt-4 px-4 pb-2 md:pt-5 md:px-6 md:pb-3 ${isFullscreen ? 'mb-0 flex-1 flex flex-col min-h-0' : 'mb-2 md:mb-3'}`}>
             
             {/* Mobile Header */}
-            <div className="md:hidden flex items-center justify-between mb-3 pb-3 border-b border-gray-200">
+            <div className="md:hidden flex items-center justify-between mb-3 pb-3 border-b border-gray-200 dark:border-slate-700">
               <div className="flex items-center gap-2 min-w-0">
                 <div className="bg-blue-600 p-1.5 rounded-lg shrink-0">
                   <Zap className="w-3 h-3 text-white" />
                 </div>
                 <div className="min-w-0">
-                  <h2 className="text-sm font-bold text-gray-900 truncate">RydX Practice Area</h2>
+                  <h2 className="text-sm font-bold text-gray-900 dark:text-white truncate">RydX Practice Area</h2>
                   {textInput.trim() && (
-                    <p className="text-[11px] text-gray-400">{words.length} words • {Math.ceil(words.length / speed)} min</p>
+                    <p className="text-[11px] text-gray-400 dark:text-slate-400">{words.length} words • {Math.ceil(words.length / speed)} min</p>
                   )}
                 </div>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={toggleFullscreen}
-                  className="w-9 h-9 flex items-center justify-center bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
+                  className="w-9 h-9 flex items-center justify-center bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-300 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors"
                   title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
                 >
                   {isFullscreen ? (
@@ -301,7 +301,7 @@ export default function PracticePage() {
                 {textInput.trim() && (
                   <button
                     onClick={handleClearText}
-                    className="w-9 h-9 flex items-center justify-center bg-red-50 text-red-500 rounded-lg hover:bg-red-100 transition-colors"
+                    className="w-9 h-9 flex items-center justify-center bg-red-50 dark:bg-red-900/30 text-red-500 dark:text-red-400 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors"
                     title="Clear all text"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -310,40 +310,40 @@ export default function PracticePage() {
                   </button>
                 )}
                 {!isEditing && textInput.trim() && (
-                  <button
-                    onClick={() => setIsEditing(true)}
-                    className="h-9 px-3 bg-gray-100 text-gray-600 rounded-lg font-semibold hover:bg-gray-200 transition-colors text-xs"
-                  >
-                    Edit
-                  </button>
+<button
+                onClick={() => setIsEditing(true)}
+                className="h-9 px-3 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-300 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors text-xs"
+              >
+                Edit
+              </button>
                 )}
               </div>
             </div>
 
             {/* Desktop Header */}
-            <div className="hidden md:flex items-center justify-between mb-4 pb-4 border-b border-slate-100">
+            <div className="hidden md:flex items-center justify-between mb-4 pb-4 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
                 <div className="bg-blue-600 p-1.5 rounded-lg shadow-lg shadow-blue-500/20">
                   <Zap className="w-4 h-4 text-white" />
                 </div>
-                <h2 className="text-base font-bold text-slate-900 tracking-tight">
+                <h2 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
                   RydX Practice Area
                 </h2>
               </div>
               <div className="flex items-center gap-3">
                 {textInput.trim() && (
                   <>
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-gray-600 dark:text-slate-400">
                       Words: <span className="font-semibold">{words.length}</span>
                     </span>
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-gray-600 dark:text-slate-400">
                       Est. Read Time: <span className="font-semibold">{Math.ceil(words.length / speed)} min</span>
                     </span>
                   </>
                 )}
                 <button
                   onClick={toggleFullscreen}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium hover:bg-blue-100 transition-colors text-sm"
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg font-medium hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors text-sm"
                   title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
                 >
                   {isFullscreen ? (
