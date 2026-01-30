@@ -37,12 +37,9 @@ export default function Header() {
       className={`glass-nav transition-shadow duration-300 ${
         scrolled ? "shadow-lg" : ""
       }`}
-      style={{ willChange: 'transform' }}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`flex justify-between items-center transition-[height] duration-300 ease-out ${
-          scrolled ? "h-16" : "h-20"
-        }`}>
+        <div className="flex justify-between items-center h-16 min-h-16">
           {/* Logo - same as footer */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-1.5 rounded-lg shadow-md">
