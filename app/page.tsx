@@ -59,7 +59,7 @@ export default function Home() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
@@ -88,9 +88,7 @@ export default function Home() {
       rotate: 0,
       y: 0,
       transition: { 
-        duration: 0.7, 
-        ease: [0.34, 1.56, 0.64, 1],
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 12
       },
@@ -122,9 +120,7 @@ export default function Home() {
       y: 0,
       scale: 1,
       transition: { 
-        duration: 0.6, 
-        ease: [0.25, 0.46, 0.45, 0.94],
-        type: "spring",
+        type: "spring" as const,
         stiffness: 120,
         damping: 15
       },
