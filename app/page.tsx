@@ -184,13 +184,13 @@ export default function Home() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center px-4 md:px-0">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href="/test" className="btn-primary flex items-center justify-center gap-2 px-8 py-4 text-base md:text-lg shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-shadow">
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+                  <Link href="/test" className="btn-primary flex items-center justify-center gap-2 px-5 py-3.5 sm:px-8 sm:py-4 text-sm sm:text-base md:text-lg text-center shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-shadow">
                     Take the Free Reading Diagnostic
                   </Link>
                 </motion.div>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href="/practice" className="btn-secondary flex items-center justify-center gap-2 px-8 py-4 text-base md:text-lg">
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+                  <Link href="/practice" className="btn-secondary flex items-center justify-center gap-2 px-5 py-3.5 sm:px-8 sm:py-4 text-sm sm:text-base md:text-lg text-center">
                     Start Practice
                   </Link>
                 </motion.div>
@@ -978,13 +978,13 @@ export default function Home() {
                 <p className="text-lg md:text-2xl text-white mb-6 md:mb-10 font-black tracking-wide">
                   Then improve it — deliberately.
                 </p>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex justify-center">
                   <Link
                     href="/test"
-                    className="inline-flex items-center gap-2 bg-white text-blue-700 px-8 md:px-10 py-3.5 md:py-4 rounded-xl md:rounded-2xl font-black text-base md:text-lg hover:bg-blue-50 shadow-lg shadow-black/20 hover:shadow-2xl hover:shadow-white/20 transition-all duration-300 active:scale-95"
+                    className="inline-flex items-center justify-center gap-2 bg-white text-blue-700 px-5 py-3 sm:px-8 sm:py-3.5 md:px-10 md:py-4 rounded-xl md:rounded-2xl font-black text-sm sm:text-base md:text-lg text-center hover:bg-blue-50 shadow-lg shadow-black/20 hover:shadow-2xl hover:shadow-white/20 transition-all duration-300 active:scale-95"
                   >
-                    Start with the Free Reading Diagnostic
-                    <ChevronDown className="w-5 h-5 -rotate-90" />
+                    <span>Start with the Free Reading Diagnostic</span>
+                    <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 -rotate-90 flex-shrink-0" />
                   </Link>
                 </motion.div>
               </div>

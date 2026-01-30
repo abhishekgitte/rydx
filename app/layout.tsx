@@ -4,6 +4,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "RydX - Increase Your Reading Speed with Better Comprehension",
   description: "Master reading comprehension for CAT, GMAT, IELTS, and competitive exams. Improve your reading speed while maintaining comprehension.",
+  icons: {
+    icon: [
+      { url: "/icon", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: "/apple-icon",
+  },
 };
 
 export default function RootLayout({
