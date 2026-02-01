@@ -175,7 +175,7 @@ export default function TestPage() {
       <Header />
 
       <main className={`flex-grow max-w-6xl mx-auto w-full px-5 sm:px-6 lg:px-8 ${isReading ? 'py-2 sm:py-3' : 'py-8 sm:py-10'}`}>
-        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] dark:shadow-none border border-slate-200/50 dark:border-slate-800 overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] dark:shadow-none border border-slate-200/50 dark:border-slate-800 overflow-hidden my-3 sm:my-4">
           <div className={`px-5 sm:px-6 border-b border-slate-100 dark:border-slate-800 ${isReading ? 'pt-3 sm:pt-4 pb-2 sm:pb-3' : 'pt-6 sm:pt-8 pb-5 sm:pb-6'}`}>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-1">
               Reading Test
@@ -241,7 +241,7 @@ export default function TestPage() {
             )}
 
             {isReading && (
-              <div className="flex flex-col space-y-2 sm:space-y-3" style={{ height: 'calc(100vh - 200px)', maxHeight: 'calc(100vh - 200px)' }}>
+              <div className="flex flex-col space-y-2 sm:space-y-3 h-[calc(100vh-280px)] sm:h-[calc(100vh-200px)] max-h-[calc(100vh-280px)] sm:max-h-[calc(100vh-200px)]">
                 <div className="flex items-center justify-between flex-wrap gap-2 text-xs sm:text-sm flex-shrink-0">
                   <span className="inline-flex items-center gap-1.5 text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/30 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg font-medium">
                     <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
@@ -291,7 +291,7 @@ export default function TestPage() {
                     key={q.id}
                     className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 p-4 sm:p-5"
                   >
-                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2.5 text-sm sm:text-base">
+                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2.5 text-sm sm:text-base leading-relaxed" style={{ fontFamily: "'Georgia', 'Times New Roman', 'Times', serif" }}>
                       {q.id}. {q.question}
                     </h3>
                     <div className="space-y-2">
@@ -308,7 +308,7 @@ export default function TestPage() {
                             onChange={() => setAnswers({ ...answers, [q.id]: index })}
                             className="mt-1 w-4 h-4 text-indigo-600 accent-indigo-600"
                           />
-                          <span className="text-slate-700 dark:text-slate-300 text-sm sm:text-base">{option}</span>
+                          <span className="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed" style={{ fontFamily: "'Georgia', 'Times New Roman', 'Times', serif" }}>{option}</span>
                         </label>
                       ))}
                     </div>

@@ -582,7 +582,7 @@ export default function PracticePage() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="absolute inset-0 bg-black/50"
+                      className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                       onClick={() => setMobileSettingsOpen(false)}
                       aria-hidden="true"
                     />
@@ -591,33 +591,36 @@ export default function PracticePage() {
                       initial={{ opacity: 0, y: 24 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 24 }}
-                      transition={{ type: "tween", duration: 0.2 }}
-                      className="relative w-full max-w-sm max-h-[85vh] overflow-y-auto bg-white dark:bg-slate-900 rounded-t-2xl sm:rounded-2xl shadow-xl p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]"
+                      transition={{ type: "tween", duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                      className="relative w-full max-w-sm max-h-[85vh] overflow-y-auto bg-white dark:bg-slate-900 rounded-t-3xl sm:rounded-2xl shadow-2xl ring-1 ring-black/5 dark:ring-white/10 p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]"
                     >
-                    <div className="flex items-center justify-between mb-6">
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white">Settings</h3>
+                      {/* Top accent */}
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 rounded-full bg-slate-200 dark:bg-slate-700 mt-3" aria-hidden="true" />
+
+                    <div className="flex items-center justify-between mt-4 mb-6">
+                      <h3 className="text-base font-extrabold tracking-tight text-slate-900 dark:text-white">Settings</h3>
                       <button
                         onClick={() => setMobileSettingsOpen(false)}
-                        className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:scale-105 active:scale-95 transition-all shadow-sm ring-1 ring-slate-200/50 dark:ring-slate-700/50"
                         aria-label="Close settings"
                       >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                       </button>
                     </div>
 
                     {/* Mode */}
                     <div className="mb-6">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Mode</label>
-                      <div className="flex gap-3">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Mode</label>
+                      <div className="flex gap-3 p-1 rounded-2xl bg-slate-100/80 dark:bg-slate-800/80 ring-1 ring-slate-200/50 dark:ring-slate-700/50">
                         <button
                           onClick={() => { setMode("run"); handleReset(); }}
-                          className={`flex-1 min-h-[48px] rounded-xl text-base font-semibold transition-all ${mode === "run" ? "bg-blue-600 text-white shadow-sm" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
+                          className={`flex-1 min-h-[48px] rounded-xl text-sm font-bold transition-all duration-200 ${mode === "run" ? "bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400/30" : "text-slate-600 dark:text-slate-400 hover:bg-white/80 dark:hover:bg-slate-700/80 hover:text-slate-900 dark:hover:text-white"}`}
                         >
                           Run
                         </button>
                         <button
                           onClick={() => { setMode("flash"); handleReset(); }}
-                          className={`flex-1 min-h-[48px] rounded-xl text-base font-semibold transition-all ${mode === "flash" ? "bg-blue-600 text-white shadow-sm" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
+                          className={`flex-1 min-h-[48px] rounded-xl text-sm font-bold transition-all duration-200 ${mode === "flash" ? "bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400/30" : "text-slate-600 dark:text-slate-400 hover:bg-white/80 dark:hover:bg-slate-700/80 hover:text-slate-900 dark:hover:text-white"}`}
                         >
                           Flash
                         </button>
@@ -626,24 +629,24 @@ export default function PracticePage() {
 
                     {/* Speed */}
                     <div className="mb-6">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Speed (WPM)</label>
-                      <div className="flex items-center gap-2 bg-gray-100 dark:bg-slate-800 rounded-xl p-2">
-                        <button onClick={() => setSpeed(Math.max(50, speed - 10))} className="min-w-[48px] min-h-[48px] flex items-center justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-slate-700 rounded-lg text-lg font-medium" aria-label="Decrease speed">−</button>
-                        <span className="flex-1 text-center text-lg font-bold text-gray-900 dark:text-white">{speed}</span>
-                        <button onClick={() => setSpeed(Math.min(1200, speed + 10))} className="min-w-[48px] min-h-[48px] flex items-center justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-slate-700 rounded-lg text-lg font-medium" aria-label="Increase speed">+</button>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Speed (WPM)</label>
+                      <div className="flex items-center gap-2 rounded-2xl p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 shadow-inner ring-1 ring-slate-100 dark:ring-slate-700/50">
+                        <button onClick={() => setSpeed(Math.max(50, speed - 10))} className="min-w-[48px] min-h-[48px] flex items-center justify-center rounded-xl bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-slate-200 dark:border-slate-600 shadow-sm text-lg font-medium transition-colors" aria-label="Decrease speed">−</button>
+                        <span className="flex-1 text-center text-xl font-extrabold tabular-nums text-slate-900 dark:text-white">{speed}</span>
+                        <button onClick={() => setSpeed(Math.min(1200, speed + 10))} className="min-w-[48px] min-h-[48px] flex items-center justify-center rounded-xl bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-slate-200 dark:border-slate-600 shadow-sm text-lg font-medium transition-colors" aria-label="Increase speed">+</button>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1.5">50 – 1200 words per minute</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-medium">50 – 1200 words per minute</p>
                     </div>
 
                     {/* Size */}
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Text Size (px)</label>
-                      <div className="flex items-center gap-2 bg-gray-100 dark:bg-slate-800 rounded-xl p-2">
-                        <button onClick={() => handleFontSizeChange(Math.max(fontSizeMin, fontSize - 2))} className="min-w-[48px] min-h-[48px] flex items-center justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-slate-700 rounded-lg text-lg font-medium" aria-label="Decrease size">−</button>
-                        <span className="flex-1 text-center text-lg font-bold text-gray-900 dark:text-white">{fontSize}</span>
-                        <button onClick={() => handleFontSizeChange(Math.min(fontSizeMax, fontSize + 2))} className="min-w-[48px] min-h-[48px] flex items-center justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-slate-700 rounded-lg text-lg font-medium" aria-label="Increase size">+</button>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Text Size (px)</label>
+                      <div className="flex items-center gap-2 rounded-2xl p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 shadow-inner ring-1 ring-slate-100 dark:ring-slate-700/50">
+                        <button onClick={() => handleFontSizeChange(Math.max(fontSizeMin, fontSize - 2))} className="min-w-[48px] min-h-[48px] flex items-center justify-center rounded-xl bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-slate-200 dark:border-slate-600 shadow-sm text-lg font-medium transition-colors" aria-label="Decrease size">−</button>
+                        <span className="flex-1 text-center text-xl font-extrabold tabular-nums text-slate-900 dark:text-white">{fontSize}</span>
+                        <button onClick={() => handleFontSizeChange(Math.min(fontSizeMax, fontSize + 2))} className="min-w-[48px] min-h-[48px] flex items-center justify-center rounded-xl bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-slate-200 dark:border-slate-600 shadow-sm text-lg font-medium transition-colors" aria-label="Increase size">+</button>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1.5">{mode === "run" ? "Run: 12–32px" : "Flash: 24–96px"}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-medium">{mode === "run" ? "Run: 12–32px" : "Flash: 24–96px"}</p>
                     </div>
                     </motion.div>
                   </div>

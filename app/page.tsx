@@ -700,9 +700,12 @@ export default function Home() {
                 Your Toolkit
               </motion.div>
               
-              <h2 className="text-2xl md:text-5xl font-extrabold mb-6 tracking-tight">
-                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-300 dark:to-purple-300 bg-clip-text text-transparent">
-                  Everything You Need to Read Faster & Better
+              <h2 className="font-extrabold mb-6 tracking-tight leading-tight px-2 sm:px-0 text-xl sm:text-2xl md:text-5xl">
+                <span className="block md:inline text-slate-800 dark:text-slate-100 md:bg-gradient-to-r md:from-blue-600 md:via-indigo-600 md:to-purple-600 md:dark:from-blue-400 md:dark:via-indigo-300 md:dark:to-purple-300 md:bg-clip-text md:text-transparent">
+                  Everything You Need to Read
+                </span>
+                <span className="block mt-1 md:mt-0 md:inline text-2xl sm:text-3xl md:text-inherit bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-300 dark:to-purple-300 bg-clip-text text-transparent">
+                  Faster & Better
                 </span>
               </h2>
             </motion.div>
@@ -977,7 +980,7 @@ export default function Home() {
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex justify-center">
                   <Link
                     href="/test"
-                    className="inline-flex items-center justify-center gap-2 bg-white text-blue-700 px-5 py-3 sm:px-8 sm:py-3.5 md:px-10 md:py-4 rounded-xl md:rounded-2xl font-black text-sm sm:text-base md:text-lg text-center hover:bg-blue-50 shadow-lg shadow-black/20 hover:shadow-2xl hover:shadow-white/20 transition-all duration-300 active:scale-95"
+                    className="inline-flex items-center justify-center gap-2 bg-white text-blue-700 px-4 py-3 sm:px-8 sm:py-3.5 md:px-10 md:py-4 rounded-xl md:rounded-2xl font-black text-xs sm:text-base md:text-lg text-center hover:bg-blue-50 shadow-lg shadow-black/20 hover:shadow-2xl hover:shadow-white/20 transition-all duration-300 active:scale-95"
                   >
                     <span>Start with the Free Reading Diagnostic</span>
                     <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 -rotate-90 flex-shrink-0" />
